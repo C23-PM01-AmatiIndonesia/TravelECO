@@ -1,2 +1,2 @@
 # MD
-Folder for Mobile Development
+This repo's only for Mobile Development
