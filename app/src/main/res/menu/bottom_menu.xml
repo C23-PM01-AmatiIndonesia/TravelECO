@@ -11,7 +11,7 @@
         android:id="@+id/menu_add_to_cart"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_shopping_cart_24"
-        android:title="@string/profile"
+        android:title="@string/cart"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menu_profile"

@@ -121,7 +121,6 @@
                     tools:ignore="VisualLintTextFieldSize,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_layout"
                 android:alpha="0"
@@ -206,9 +205,9 @@
                 android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="?attr/colorControlNormal"
+                android:textAllCaps="false"
                 app:icon="@drawable/ic_baseline_language_24"
                 app:iconTint="?attr/colorControlNormal"
-                android:textAllCaps="false"
                 style="@style/Widget.MaterialComponents.Button.TextButton.Icon" />
 
         </TableRow>

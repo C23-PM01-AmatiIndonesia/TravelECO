@@ -63,7 +63,6 @@
                     tools:ignore="VisualLintTextFieldSize" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/password_layout"
                 android:alpha="0"
@@ -89,7 +88,6 @@
                     tools:ignore="VisualLintTextFieldSize,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.example.traveleco.ui.customview.EditButton
                 android:id="@+id/btn_login"
                 android:alpha="0"
@@ -105,7 +103,9 @@
                 tools:ignore="VisualLintButtonSize,TextContrastCheck" />
 
         </LinearLayout>
+
     </ScrollView>
+
     <TableLayout
         android:id="@+id/tableLayout"
         android:layout_width="match_parent"
@@ -166,5 +166,7 @@
                 tools:ignore="TextContrastCheck" />
 
         </TableRow>
+
     </TableLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
