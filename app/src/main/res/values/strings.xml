@@ -5,6 +5,9 @@
     <string name="login">Masuk</string>
     <string name="signup">Daftar</string>
     <string name="logout">Keluar</string>
+    <string name="user">Pengguna</string>
+    <string name="number">No. Telp</string>
+    <string name="about">Tentang</string>
     <string name="cart">Keranjang</string>
     <string name="title_login_page">Silahkan Masuk</string>
     <string name="message_login_page">Masuk untuk dapat menikmati perjalanan Anda</string>
@@ -15,7 +18,7 @@
     <string name="isLogin">Sudah punya Akun?</string>
     <string name="home">Beranda</string>
     <string name="language">Bahasa</string>
-    <string name="profile">Profile</string>
+    <string name="profile">Profil Akun</string>
     <string name="setting">Pengaturan</string>
     <string name="hint_email_login">Email</string>
     <string name="hint_password_login">Password</string>
@@ -68,9 +71,9 @@
     <string name="profile_image">Foto Profile</string>
     <string name="text_or">ATAU</string>
     <string name="desc_logo_app">Ikon Aplikasi TravelEco</string>
-    <string name="place">Tempat Wisata</string>
+    <string name="place">Tempat Desa</string>
     <string name="img_place">Gambar Tempat</string>
     <string name="review">Ulasan</string>
     <string name="price">Harga</string>
-    <string name="header1">Cari Lebih Banyak Pilihan Wisata</string>
+    <string name="header1">Cari Desa Pilihan</string>
 </resources>
