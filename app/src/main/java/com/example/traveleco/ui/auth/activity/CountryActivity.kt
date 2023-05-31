@@ -26,6 +26,7 @@ import com.hbb20.CountryCodePicker
 import java.util.concurrent.TimeUnit
 
 class CountryActivity : AppCompatActivity() {
+
     private var _binding: ActivityCountryBinding? = null
     private val binding get() = _binding
 

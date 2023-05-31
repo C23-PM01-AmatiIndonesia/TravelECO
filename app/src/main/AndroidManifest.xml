@@ -63,6 +63,12 @@
         <activity
             android:name=".ui.ProfileActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.auth.activity.PhoneActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.activity.OtpActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

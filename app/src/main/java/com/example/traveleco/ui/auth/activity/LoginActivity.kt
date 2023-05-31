@@ -181,7 +181,7 @@ class LoginActivity : AppCompatActivity() {
                                 )
                             )
                             Log.d("LoginActivity", "Memulai MainActivity")
-                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            val intent = Intent(this@LoginActivity, CountryActivity::class.java)
                             intent.putExtra(NAME_GOOGLE, account.displayName)
                             intent.putExtra(EMAIL_GOOGLE, account.email)
                             startActivity(intent)
