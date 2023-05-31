@@ -3,15 +3,14 @@ package com.example.traveleco.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.traveleco.MainActivity
 import com.example.traveleco.R
-import com.example.traveleco.ViewModelFactory
+import com.example.traveleco.model.ViewModelFactory
 import com.example.traveleco.databinding.ActivityProfileBinding
 import com.example.traveleco.model.AuthViewModel
-import com.example.traveleco.ui.auth.LoginActivity
+import com.example.traveleco.ui.auth.activity.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 

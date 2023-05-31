@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.auth.RegisterActivity"
-    android:background="@drawable/login_background6">
+    tools:context=".ui.auth.activity.RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -20,20 +19,26 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/messageTextView"
+                android:id="@+id/titleTextView"
+                android:alpha="0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="32dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginBottom="24dp"
+                android:text="@string/title_signup_page"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/messageTextView"
                 android:alpha="0"
-                android:text="@string/final_regis_message"
-                android:textColor="@color/white"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                tools:ignore="TextContrastCheck"
-                app:layout_constraintTop_toTopOf="parent"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:text="@string/message_signup_page"
+                android:textSize="16sp" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -42,27 +47,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:visibility="invisible"
-                tools:visibility="invisible"
-                app:layout_constraintTop_toBottomOf="@id/messageTextView"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="@+id/emailCheckVerification"/>
-
-            <TextView
-                android:id="@+id/emailCheckVerification"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="0dp"
-                android:alpha="0"
-                android:text="@string/check_email_verification"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                tools:ignore="TextContrastCheck"
-                app:layout_constraintTop_toBottomOf="@id/progressBar"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                tools:visibility="invisible"/>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/name_layout"
@@ -70,6 +55,7 @@
                 style="@style/TextInputOuterFieldStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 app:hintTextColor="@color/gray_pastel1"
@@ -104,11 +90,11 @@
                     style="@style/TextInputInnerFieldStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_country_register"
-                    android:inputType="textPersonName"
+                    android:hint="@string/hint_phoneNumber_register"
+                    android:inputType="phone"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    tools:ignore="SpeakableTextPresentCheck,VisualLintTextFieldSize" />
+                    tools:ignore="VisualLintTextFieldSize,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -165,7 +151,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:layout_marginStart="32dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:text="@string/signup"
                 android:enabled="false"

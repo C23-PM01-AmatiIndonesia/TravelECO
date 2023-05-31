@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.traveleco.MainActivity
 import com.example.traveleco.R
 import com.example.traveleco.databinding.ActivityBucketBinding
-import com.example.traveleco.ui.auth.LoginActivity
+import com.example.traveleco.ui.auth.activity.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 

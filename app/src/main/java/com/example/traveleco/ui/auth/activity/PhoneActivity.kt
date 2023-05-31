@@ -1,4 +1,4 @@
-package com.example.traveleco.ui.auth
+package com.example.traveleco.ui.auth.activity
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -12,7 +12,6 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.traveleco.R
-import com.example.traveleco.SessionManager
 import com.example.traveleco.databinding.ActivityPhoneBinding
 import com.example.traveleco.ui.customview.EditButton
 import com.example.traveleco.ui.customview.EditText

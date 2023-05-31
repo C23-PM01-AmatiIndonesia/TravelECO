@@ -1,15 +1,12 @@
-package com.example.traveleco.ui.auth
+package com.example.traveleco.ui.auth.activity
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.traveleco.MainActivity
-import com.example.traveleco.SessionManager
-import com.example.traveleco.ViewModelFactory
+import com.example.traveleco.model.ViewModelFactory
 import com.example.traveleco.databinding.ActivityMainBinding
 import com.example.traveleco.model.AuthViewModel
 

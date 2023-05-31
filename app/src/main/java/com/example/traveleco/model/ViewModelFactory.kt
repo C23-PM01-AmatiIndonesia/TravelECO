@@ -1,9 +1,9 @@
-package com.example.traveleco
+package com.example.traveleco.model
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.traveleco.model.AuthViewModel
+import com.example.traveleco.util.Injection
 import com.example.traveleco.repo.AuthRepository
 
 

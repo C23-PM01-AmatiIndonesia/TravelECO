@@ -1,10 +1,11 @@
-package com.example.traveleco
+package com.example.traveleco.util
 
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.traveleco.repo.AuthRepository
+import com.example.traveleco.ui.auth.pref.AuthPreference
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 

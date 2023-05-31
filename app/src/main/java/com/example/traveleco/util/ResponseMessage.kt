@@ -1,4 +1,4 @@
-package com.example.traveleco
+package com.example.traveleco.util
 
 sealed class ResponseMessage<T>(val data: T? = null, val message: String? = null) {
     class Success<T>(data: T) : ResponseMessage<T>(data)

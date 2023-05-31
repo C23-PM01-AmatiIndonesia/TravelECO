@@ -1,4 +1,4 @@
-package com.example.traveleco
+package com.example.traveleco.ui.auth.pref
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

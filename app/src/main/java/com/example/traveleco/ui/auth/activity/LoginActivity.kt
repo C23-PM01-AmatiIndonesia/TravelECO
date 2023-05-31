@@ -1,14 +1,11 @@
-package com.example.traveleco.ui.auth
+package com.example.traveleco.ui.auth.activity
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.WindowInsets
@@ -17,13 +14,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import com.example.traveleco.*
 import com.example.traveleco.databinding.ActivityLoginBinding
 import com.example.traveleco.model.AuthViewModel
+import com.example.traveleco.model.ViewModelFactory
+import com.example.traveleco.ui.auth.pref.AuthUser
 import com.example.traveleco.ui.customview.EditButton
 import com.example.traveleco.ui.customview.EditText
+import com.example.traveleco.util.ResponseMessage
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -53,29 +52,6 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         setupModel()
-//        authViewModel.userLogin(email, password).observe(this) { success ->
-//            if (success) {
-//                if (auth.currentUser!!.isEmailVerified) {
-//                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-//                    startActivity(intent)
-//                } else {
-//                    Toast.makeText(this, "Kamu belum verifikasi Email. Silahkan cek pada Email Kamu untuk dapat melanjutkannya", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        }
-//
-//        authViewModel.userData.observe(this) { user ->
-//            // Mengambil data pengguna dan kirim ke MainActivity
-//            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-//            intent.putExtra(EXTRA_EMAIL, user?.email)
-//            intent.putExtra(EXTRA_NAME, user?.name)
-//        }
-//
-//        authViewModel.errorMessage.observe(this) { errorMessage ->
-//            errorMessage?.let {
-//                Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_SHORT).show()
-//            }
-//        }
 
         loginEmail = binding!!.edLoginEmail
         loginPassword = binding!!.edLoginPassword
@@ -234,7 +210,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun playAnimation() {
         val text = ObjectAnimator.ofFloat(binding?.welcomeText, View.ALPHA, 1F).setDuration(800)
-        val text2 = ObjectAnimator.ofFloat(binding?.welcomeText2, View.ALPHA, 1F).setDuration(800)
         val email = ObjectAnimator.ofFloat(binding?.emailLayout, View.ALPHA, 1F).setDuration(500)
         val password = ObjectAnimator.ofFloat(binding?.passwordLayout, View.ALPHA, 1F).setDuration(500)
         val btnLogin = ObjectAnimator.ofFloat(binding?.btnLogin, View.ALPHA, 1F).setDuration(500)
@@ -243,7 +218,7 @@ class LoginActivity : AppCompatActivity() {
         val bottomText = ObjectAnimator.ofFloat(binding?.tableLayout, View.ALPHA, 1F).setDuration(500)
 
         AnimatorSet().apply {
-            playSequentially(text, text2, email, password, btnLogin, orText, btnWithGoogle, bottomText)
+            playSequentially(text, email, password, btnLogin, orText, btnWithGoogle, bottomText)
             startDelay = 500
         }.start()
     }

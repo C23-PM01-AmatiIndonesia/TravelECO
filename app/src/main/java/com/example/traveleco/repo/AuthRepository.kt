@@ -3,21 +3,15 @@ package com.example.traveleco.repo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.liveData
-import com.example.traveleco.AuthPreference
-import com.example.traveleco.AuthUser
-import com.example.traveleco.ResponseMessage
-import com.example.traveleco.database.Users
-import com.google.android.gms.auth.api.Auth
+import com.example.traveleco.ui.auth.pref.AuthPreference
+import com.example.traveleco.ui.auth.pref.AuthUser
+import com.example.traveleco.util.ResponseMessage
 import com.google.android.gms.common.api.ApiException
 import com.google.android.recaptcha.RecaptchaException
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
-import com.google.firebase.database.FirebaseDatabase
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
 
 //interface AuthRepository {

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.auth.RegisterActivity"
+    tools:context=".ui.auth.activity.RegisterActivity"
     android:background="@drawable/login_background6">
 
     <ScrollView

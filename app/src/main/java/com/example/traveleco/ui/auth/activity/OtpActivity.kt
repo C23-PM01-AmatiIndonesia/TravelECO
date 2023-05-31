@@ -1,4 +1,4 @@
-package com.example.traveleco.ui.auth
+package com.example.traveleco.ui.auth.activity
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -17,16 +17,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.traveleco.MainActivity
 import com.example.traveleco.databinding.ActivityOtpBinding
-import com.example.traveleco.ui.customview.EditButton
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.example.traveleco.R
 import com.example.traveleco.database.Users
-import com.example.traveleco.model.AuthViewModel
 import com.google.firebase.database.FirebaseDatabase
 import java.util.concurrent.TimeUnit
 

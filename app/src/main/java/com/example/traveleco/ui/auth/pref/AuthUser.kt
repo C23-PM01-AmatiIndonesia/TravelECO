@@ -1,4 +1,4 @@
-package com.example.traveleco
+package com.example.traveleco.ui.auth.pref
 
 data class AuthUser(
     val name: String,

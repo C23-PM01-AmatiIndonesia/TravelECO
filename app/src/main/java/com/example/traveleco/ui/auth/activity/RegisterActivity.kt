@@ -1,18 +1,10 @@
-package com.example.traveleco.ui.auth
+package com.example.traveleco.ui.auth.activity
 
-import android.Manifest
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.WindowInsets
@@ -25,11 +17,11 @@ import com.example.traveleco.*
 import com.example.traveleco.database.Users
 import com.example.traveleco.databinding.ActivityRegisterBinding
 import com.example.traveleco.model.AuthViewModel
+import com.example.traveleco.model.ViewModelFactory
 import com.example.traveleco.ui.customview.EditButton
 import com.example.traveleco.ui.customview.EditText
+import com.example.traveleco.util.ResponseMessage
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.PhoneAuthCredential
-import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.FirebaseDatabase
 
 class RegisterActivity : AppCompatActivity() {
@@ -156,9 +148,6 @@ class RegisterActivity : AppCompatActivity() {
                                             val currentUser = auth.currentUser
                                             currentUser?.sendEmailVerification()?.addOnCompleteListener { task ->
                                                 if (task.isSuccessful) {
-                                                    ObjectAnimator.ofFloat(binding.emailCheckVerification, View.ALPHA, 1F).apply {
-                                                        duration = 500
-                                                    }.start()
                                                     Toast.makeText(this, "Email verification sent. Please check your email.", Toast.LENGTH_SHORT).show()
                                                     val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                                                     startActivity(intent)

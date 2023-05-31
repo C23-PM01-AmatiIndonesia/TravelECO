@@ -5,6 +5,9 @@
     <string name="login">Masuk</string>
     <string name="signup">Daftar</string>
     <string name="logout">Keluar</string>
+    <string name="user">Pengguna</string>
+    <string name="number">No. Telp</string>
+    <string name="about">Tentang</string>
     <string name="cart">Keranjang</string>
     <string name="title_login_page">Silahkan Masuk</string>
     <string name="message_login_page">Masuk untuk dapat menikmati perjalanan Anda</string>
@@ -27,6 +30,11 @@
     <string name="invalid_phone_number">Nomor Telepon tidak valid</string>
     <string name="invalid_password">Password kurang dari 8 karakter</string>
     <string name="check_validity_field">"Cek Field Kamu"</string>
+    <string name="verification_message">Kode OTP Kamu telah Kami Kirim. Silahkan cek pada sms yang kami kirimkan ke nomor Kamu</string>
+    <string name="resend_text">Belum mendapatkan kode?</string>
+    <string name="resend_otp">Kirim Ulang</string>
+    <string name="verification">Verifikasi</string>
+    <string name="next">Lanjutkan</string>
     <string name="dashboard">Utama</string>
     <string name="menu">Menu</string>
     <string name="open_menu">Buka</string>
@@ -48,9 +56,11 @@
     <string name="gallery">Gallery</string>
     <string name="camera">Kamera</string>
     <string name="image_card_story">Gambar List Story</string>
+    <string name="img_detail">Detail Gambar</string>
     <string name="image_preview">Pratinjau Gambar</string>
     <string name="image_detail_story">Postingan Foto</string>
     <string name="blank_description_create_story">Silakan Masukkan Deskripsi Terlebih Dahulu</string>
+    <string name="place_description">Deskripsi Tempat</string>
     <string name="blank_image_create_story">Gambar Tidak Boleh Kosong</string>
     <string name="try_again">Coba Lagi</string>
     <string name="title_activity_maps">MapsActivity</string>
@@ -73,4 +83,25 @@
     <string name="review">Ulasan</string>
     <string name="price">Harga</string>
     <string name="header1">Cari Lebih Banyak Pilihan Wisata</string>
+    <string name="carfoot">Carbon Footprint</string>
+    <string name="prog_act">TEGAL DUKUH EXPERIENCE</string>
+    <string name="single">SINGLE</string>
+    <string name="combo">COMBO TRIP</string>
+    <string name="over">OVERNIGHT PACKAGE</string>
+    <string name="powered">Powered by AMATI Indonesia</string>
+    <string name="program">Program</string>
+    <string name="sub_program">Sub-Program</string>
+    <string name="detail_desc">Details Description</string>
+    <string name="duration">Duration</string>
+    <string name="level">Level</string>
+    <string name="inclussion">Inclussion</string>
+    <string name="time">Start Time</string>
+    <string name="order">Order</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="invalid_otp_number">Kode yang Kamu masukkan salah</string>
+    <string name="empty_otp">Kamu belum memasukkan Kode Verifikasi</string>
+    <string name="button_google_text">Masuk dengan Google</string>
+    <string name="verification_account">Verifikasi Nomor Telepon Kamu Dulu ya</string>
+    <string name="hint_country_register">Asal Negara Kamu</string>
 </resources>
