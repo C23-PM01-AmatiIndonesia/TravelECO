@@ -77,16 +77,6 @@ class EditText : AppCompatEditText, View.OnTouchListener {
                             editButton?.isEnabled = false
                         }
                     }
-                    R.id.ed_register_phoneNumber -> {
-                        if (p0.toString().length < 10 || !p0.toString().matches(Regex("\\d+"))) {
-                            error = resources.getString(R.string.invalid_phone_number)
-                            setButtonDrawables(endOfTheText = errorIcon)
-                            editButton?.isEnabled = false
-                        } else {
-                            error = null
-                            setButtonDrawables(endOfTheText = null)
-                        }
-                    }
                     R.id.ed_login_password, R.id.ed_register_password -> {
                         setButtonDrawables(endOfTheText = passwordToggleIcon)
                         if (p0.toString().length < 8) {
@@ -96,6 +86,11 @@ class EditText : AppCompatEditText, View.OnTouchListener {
                             editButton?.isEnabled = true
                             setError(null, null)
                         }
+                    }
+                    R.id.ed_register_phoneNumber -> {
+                        error = null
+                        setButtonDrawables(endOfTheText = null)
+                        editButton?.isEnabled = true
                     }
                 }
             } else {
@@ -113,9 +108,12 @@ class EditText : AppCompatEditText, View.OnTouchListener {
                         if (p0.toString().isNotBlank()) {
                             error = null
                             setButtonDrawables(endOfTheText = null)
-                        } else {
-                            error = resources.getString(R.string.invalid_email)
-                            setButtonDrawables(endOfTheText = errorIcon)
+                        }
+                    }
+                    R.id.ed_register_country -> {
+                        if (p0.toString().isNotBlank()) {
+                            error = null
+                            setButtonDrawables(endOfTheText = null)
                         }
                     }
                 }

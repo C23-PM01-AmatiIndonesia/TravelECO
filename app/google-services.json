@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "348229883871",
-    "firebase_url": "https://traveleco-2ecf0-default-rtdb.firebaseio.com",
-    "project_id": "traveleco-2ecf0",
-    "storage_bucket": "traveleco-2ecf0.appspot.com"
+    "project_number": "986987690832",
+    "firebase_url": "https://traveleco-052923-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "traveleco-052923",
+    "storage_bucket": "traveleco-052923.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:348229883871:android:aeb23b845904a4b24d166a",
+        "mobilesdk_app_id": "1:986987690832:android:3c04a99dc59aeddeb30a55",
         "android_client_info": {
           "package_name": "com.example.traveleco"
         }
       },
       "oauth_client": [
         {
-          "client_id": "348229883871-248euteu54edk85qob2pkdfv4s5pr67i.apps.googleusercontent.com",
+          "client_id": "986987690832-kdvbta7nle78jq4fr7eq42bmdqk1vvfe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.traveleco",
+            "certificate_hash": "afd829026d42199050bf079797a2fa0485881ecf"
+          }
+        },
+        {
+          "client_id": "986987690832-sqasfh9svq5628gmhdc9plk9tsmra8es.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyABcnPbNJOTaj1G8qyzdHHK3xPpNryZ-9I"
+          "current_key": "AIzaSyD7h_1uMayp4FXcdaMGXVmrihLun5YOQnE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "348229883871-248euteu54edk85qob2pkdfv4s5pr67i.apps.googleusercontent.com",
+              "client_id": "986987690832-8k2gd4u12g62sbgg76vpbkof2u4vltgm.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

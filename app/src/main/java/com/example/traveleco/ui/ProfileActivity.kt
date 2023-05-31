@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.traveleco.MainActivity
 import com.example.traveleco.R
+import com.example.traveleco.ViewModelFactory
 import com.example.traveleco.databinding.ActivityProfileBinding
 import com.example.traveleco.model.AuthViewModel
 import com.example.traveleco.ui.auth.LoginActivity
@@ -30,12 +31,13 @@ class ProfileActivity : AppCompatActivity(){
         bottomNavigation?.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         bottomNavigation?.selectedItemId = R.id.menu_profile
 
+        setupModel()
+
         val email = intent.getStringExtra(LoginActivity.EXTRA_EMAIL)
         val displayName = intent.getStringExtra(LoginActivity.EXTRA_NAME)
 
         binding?.tvWelcome?.text = "Hello $displayName, email $email"
 
-        authViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
 
         binding?.btnLogout?.setOnClickListener {
             signOut()
@@ -69,10 +71,17 @@ class ProfileActivity : AppCompatActivity(){
         return true
     }
 
+    private fun setupModel() {
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
+        authViewModel = ViewModelProvider(this, factory)[AuthViewModel::class.java]
+    }
+
+
     private fun signOut() {
-        authViewModel.clearUserToken()
-        auth.signOut()
+        authViewModel.logout()
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
+
+
 }

@@ -2,22 +2,35 @@ package com.example.traveleco.ui.auth
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.app.Activity
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
-import com.example.traveleco.MainActivity
-import com.example.traveleco.R
+import com.example.traveleco.*
 import com.example.traveleco.databinding.ActivityLoginBinding
 import com.example.traveleco.model.AuthViewModel
 import com.example.traveleco.ui.customview.EditButton
 import com.example.traveleco.ui.customview.EditText
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GoogleAuthProvider
 
 
 class LoginActivity : AppCompatActivity() {
@@ -29,9 +42,9 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginEmail: EditText
     private lateinit var loginPassword: EditText
     private lateinit var loginButton: EditButton
+    private lateinit var googleSignInClient: GoogleSignInClient
 
     private lateinit var authViewModel: AuthViewModel
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -39,30 +52,30 @@ class LoginActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        authViewModel = ViewModelProvider(this).get(AuthViewModel::class.java)
-
-        authViewModel.loginResult.observe(this) { success ->
-            if (success) {
-                // kalo login sukses kirim lanjut ke main activity
-                val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                startActivity(intent)
-            }
-        }
-
-        authViewModel.userData.observe(this) { user ->
-            // Mengambil data pengguna dan kirim ke MainActivity
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            intent.putExtra(EXTRA_EMAIL, user?.email)
-            intent.putExtra(EXTRA_NAME, user?.name)
-            startActivity(intent)
-        }
-
-        authViewModel.errorMessage.observe(this) { errorMessage ->
-            errorMessage?.let {
-                Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_SHORT).show()
-            }
-        }
-
+        setupModel()
+//        authViewModel.userLogin(email, password).observe(this) { success ->
+//            if (success) {
+//                if (auth.currentUser!!.isEmailVerified) {
+//                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+//                    startActivity(intent)
+//                } else {
+//                    Toast.makeText(this, "Kamu belum verifikasi Email. Silahkan cek pada Email Kamu untuk dapat melanjutkannya", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        }
+//
+//        authViewModel.userData.observe(this) { user ->
+//            // Mengambil data pengguna dan kirim ke MainActivity
+//            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+//            intent.putExtra(EXTRA_EMAIL, user?.email)
+//            intent.putExtra(EXTRA_NAME, user?.name)
+//        }
+//
+//        authViewModel.errorMessage.observe(this) { errorMessage ->
+//            errorMessage?.let {
+//                Toast.makeText(this@LoginActivity, errorMessage, Toast.LENGTH_SHORT).show()
+//            }
+//        }
 
         loginEmail = binding!!.edLoginEmail
         loginPassword = binding!!.edLoginPassword
@@ -78,12 +91,23 @@ class LoginActivity : AppCompatActivity() {
         }
 
         auth = FirebaseAuth.getInstance()
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         binding?.btnIsRegister?.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(this, PhoneActivity::class.java)
             startActivity(intent)
         }
 
+        val googleTextView: TextView = binding?.loginWithGoogle?.getChildAt(0) as TextView
+        googleTextView.text = resources.getString(R.string.button_google_text)
+
+        binding?.loginWithGoogle?.setOnClickListener {
+            signInWithGoogle()
+        }
 
         playAnimation()
         setupAction()
@@ -99,7 +123,48 @@ class LoginActivity : AppCompatActivity() {
                     && loginPassword.text!!.isNotEmpty()) {
                     val email = binding?.edLoginEmail?.text.toString().trim()
                     val password = binding?.edLoginPassword?.text.toString().trim()
-                    authViewModel.signInWithEmailAndPassword(email, password)
+//                    authViewModel.signInWithEmailAndPassword(email, password)
+                    authViewModel.userLogin(email, password).observe(this@LoginActivity) { response ->
+                        when (response) {
+                            is ResponseMessage.Loading -> {}
+                            is ResponseMessage.Success -> {
+                                saveUserData(
+                                    AuthUser(
+                                        response.data?.user?.displayName.toString(),
+                                        response.data?.user?.uid.toString(),
+                                        true
+                                    )
+                                )
+                                if (auth.currentUser!!.isEmailVerified) {
+                                    val intent =
+                                        Intent(this@LoginActivity, MainActivity::class.java)
+                                    startActivity(intent)
+                                } else {
+                                    Toast.makeText(
+                                        this@LoginActivity,
+                                        "Kamu belum verifikasi Email. Silahkan cek pada Email Kamu untuk dapat melanjutkannya",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                            is ResponseMessage.Error -> {
+                                Log.d(
+                                    "OnErrorLogin: ",
+                                    "response: ${response.message.toString()}"
+                                )
+                                when (response.message) {
+                                    "There is no user record corresponding to this identifier. The user may have been deleted" ->
+                                        Toast.makeText(this@LoginActivity, "Akun Tidak ditemukan", Toast.LENGTH_SHORT).show()
+                                    "The password is invalid or the user does not have a password" ->
+                                        Toast.makeText(this@LoginActivity, "Email atau password salah", Toast.LENGTH_SHORT).show()
+                                    "The email address is badly formatted" ->
+                                        Toast.makeText(this@LoginActivity, "Email atau password salah", Toast.LENGTH_SHORT).show()
+                                    else ->
+                                        Toast.makeText(this@LoginActivity, "Akun tidak terdaftar", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    }
                 } else {
                     Toast.makeText(
                         this@LoginActivity,
@@ -111,22 +176,92 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun signInWithGoogle() {
+        val signInIntent = googleSignInClient.signInIntent
+        launcher.launch(signInIntent)
+    }
+
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            handleResult(task)
+        }
+    }
+
+    private fun handleResult(task: Task<GoogleSignInAccount>) {
+        if (task.isSuccessful) {
+            val account: GoogleSignInAccount? = task.result
+            if (account != null) {
+                val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+                authViewModel.googleSignIn(credential).observe(this@LoginActivity) { response ->
+                    when (response) {
+                        is ResponseMessage.Loading -> {}
+                        is ResponseMessage.Success -> {
+                            saveUserData(
+                                AuthUser(
+                                    response.data?.user?.displayName.toString(),
+                                    response.data?.user?.uid.toString(),
+                                    true
+                                )
+                            )
+                            Log.d("LoginActivity", "Memulai MainActivity")
+                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            intent.putExtra(NAME_GOOGLE, account.displayName)
+                            intent.putExtra(EMAIL_GOOGLE, account.email)
+                            startActivity(intent)
+                            finish()
+                        }
+                        is ResponseMessage.Error -> {
+                            Log.d("OnErrorLogin: ", "response: ${response.message.toString()}")
+                            Toast.makeText(this@LoginActivity, response.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+        } else {
+            Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun saveUserData(user: AuthUser) {
+        authViewModel.saveUser(user)
+    }
+
+    private fun setupModel() {
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
+        authViewModel = ViewModelProvider(this, factory)[AuthViewModel::class.java]
+    }
+
     private fun playAnimation() {
-        val image = ObjectAnimator.ofFloat(binding?.imageView, View.ALPHA, 1F).setDuration(800)
+        val text = ObjectAnimator.ofFloat(binding?.welcomeText, View.ALPHA, 1F).setDuration(800)
+        val text2 = ObjectAnimator.ofFloat(binding?.welcomeText2, View.ALPHA, 1F).setDuration(800)
         val email = ObjectAnimator.ofFloat(binding?.emailLayout, View.ALPHA, 1F).setDuration(500)
         val password = ObjectAnimator.ofFloat(binding?.passwordLayout, View.ALPHA, 1F).setDuration(500)
         val btnLogin = ObjectAnimator.ofFloat(binding?.btnLogin, View.ALPHA, 1F).setDuration(500)
+        val orText = ObjectAnimator.ofFloat(binding?.orText, View.ALPHA, 1F).setDuration(500)
+        val btnWithGoogle = ObjectAnimator.ofFloat(binding?.loginWithGoogle, View.ALPHA, 1F).setDuration(500)
         val bottomText = ObjectAnimator.ofFloat(binding?.tableLayout, View.ALPHA, 1F).setDuration(500)
 
         AnimatorSet().apply {
-            playSequentially(image, email, password, btnLogin, bottomText)
+            playSequentially(text, text2, email, password, btnLogin, orText, btnWithGoogle, bottomText)
             startDelay = 500
         }.start()
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding?.apply {
+            edLoginEmail.isEnabled = !isLoading
+            edLoginPassword.isEnabled = !isLoading
+            btnLogin.isEnabled = !isLoading
+            progressBar.visibility = View.VISIBLE
+        }
     }
 
     companion object {
         const val EXTRA_EMAIL = "extra_email"
         const val EXTRA_NAME = "extra_name"
+        const val NAME_GOOGLE = "name_google"
+        const val EMAIL_GOOGLE = "email_google"
     }
 
 }
