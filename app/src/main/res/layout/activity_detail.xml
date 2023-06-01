@@ -7,9 +7,10 @@
     tools:context=".ui.detail.DetailActivity">
 
     <ImageView
-        android:id="@+id/iv_detail"
+        android:id="@+id/iv_destination_detail"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,20 +21,22 @@
         android:id="@+id/tv_detail"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/place_description"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/place"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_detail" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_destination_detail" />
 
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
+        android:paddingTop="6dp"
         android:contentDescription="@string/location"
         android:src="@drawable/ic_baseline_location_on_24"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,23 +44,26 @@
 
     <TextView
         android:id="@+id/tv_location"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/location"
-        android:textColor="@color/green_pastel"
-        android:textSize="18sp"
+        android:textColor="@color/gray_pastel1"
+        android:textSize="14sp"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/tv_detail" />
 
     <TextView
-        android:id="@+id/tv_carfoot"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_description"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
-        android:text="@string/carfoot"
+        android:textSize="16sp"
+        android:text="@string/destination_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_location" />
 
@@ -74,14 +80,14 @@
         android:outlineSpotShadowColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_carfoot" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_description" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/prog_act"
         android:textSize="20sp"
         android:textStyle="bold"

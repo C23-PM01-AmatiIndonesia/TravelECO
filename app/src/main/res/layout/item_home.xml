@@ -21,7 +21,7 @@
         android:padding="4dp">
 
         <ImageView
-            android:id="@+id/iv_place"
+            android:id="@+id/iv_destination"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:layout_marginStart="4dp"
@@ -34,40 +34,40 @@
             android:contentDescription="@string/img_place" />
 
         <TextView
-            android:id="@+id/tv_place"
+            android:id="@+id/tv_destination_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:text="@string/place"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="18sp"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/iv_place" />
+            card_view:layout_constraintTop_toBottomOf="@+id/iv_destination" />
 
         <TextView
-            android:id="@+id/tv_review"
+            android:id="@+id/tv_destination_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
-            android:text="@string/review"
+            android:text="@string/destination_location"
             android:textSize="12sp"
             android:textStyle="bold"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_place" />
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_destination_name" />
 
         <TextView
-            android:id="@+id/tv_location"
+            android:id="@+id/tv_destination_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
-            android:text="@string/location"
+            android:text="@string/destination_description"
             android:textSize="16sp"
             android:textStyle="normal"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_review" />
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_destination_location" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

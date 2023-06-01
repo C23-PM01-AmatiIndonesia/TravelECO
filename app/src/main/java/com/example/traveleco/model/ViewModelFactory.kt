@@ -8,7 +8,9 @@ import com.example.traveleco.repo.AuthRepository
 
 
 @Suppress("UNCHECKED_CAST")
-class ViewModelFactory(private val authRepository: AuthRepository) : ViewModelProvider.Factory {
+class ViewModelFactory(
+    private val authRepository: AuthRepository)
+    : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(AuthViewModel::class.java)) {
@@ -22,7 +24,8 @@ class ViewModelFactory(private val authRepository: AuthRepository) : ViewModelPr
         private var instance: ViewModelFactory? = null
         fun getInstance(context: Context): ViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(Injection.provideRepository(context))
+                instance ?: ViewModelFactory(
+                    Injection.provideAuthRepository(context))
             }.also { instance = it }
 
     }

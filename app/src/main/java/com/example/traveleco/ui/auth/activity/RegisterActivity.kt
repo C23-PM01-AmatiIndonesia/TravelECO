@@ -23,6 +23,8 @@ import com.example.traveleco.ui.customview.EditText
 import com.example.traveleco.util.ResponseMessage
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -79,33 +81,6 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-//        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
-
-//        authViewModel.registerResult.observe(this) { success ->
-//            if (success) {
-//                val user = auth.currentUser
-//                user?.sendEmailVerification()?.addOnCompleteListener { task ->
-//                    if (task.isSuccessful) {
-//                        ObjectAnimator.ofFloat(binding?.emailCheckVerification, View.ALPHA, 1F).apply {
-//                            duration = 500
-//                        }.start()
-//                        Toast.makeText(this, "Email verification sent. Please check your email.", Toast.LENGTH_SHORT).show()
-//                        val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-//                        startActivity(intent)
-//                    } else {
-//                        Toast.makeText(this, task.exception?.message, Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            } else {
-//                Toast.makeText(this@RegisterActivity, R.string.error_register, Toast.LENGTH_SHORT).show()
-//            }
-//        }
-//
-//        authViewModel.errorMessage.observe(this) { errorMessage ->
-//            errorMessage?.let {
-//                Toast.makeText(this@RegisterActivity, errorMessage, Toast.LENGTH_SHORT).show()
-//            }
-//        }
         setupModel()
 
         playAnimation()
@@ -142,7 +117,7 @@ class RegisterActivity : AppCompatActivity() {
                             is ResponseMessage.Success -> {
                                 val currentUserUid = auth.currentUser?.uid
                                 if (currentUserUid != null) {
-                                    val user = Users(name, email, phoneNumber, country, currentUserUid)
+                                    val user = Users(name, email, phoneNumber, country, currentUserUid, getCurrentDateTime())
                                     database.child(currentUserUid).setValue(user).addOnCompleteListener { tasks ->
                                         if (tasks.isSuccessful) {
                                             val currentUser = auth.currentUser
@@ -185,6 +160,11 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    private fun getCurrentDateTime(): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val date = Date()
+        return dateFormat.format(date)
+    }
 
     private fun playAnimation() {
         val message = ObjectAnimator.ofFloat(binding?.messageTextView, View.ALPHA, 1F).setDuration(500)

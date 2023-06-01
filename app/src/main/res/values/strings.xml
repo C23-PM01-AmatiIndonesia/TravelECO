@@ -40,9 +40,8 @@
     <string name="open_menu">Buka</string>
     <string name="no_data">Tidak Ada Data</string>
     <string name="close_menu">Tutup</string>
-    <string name="add_story_button">Tambah</string>
-    <string name="story_username">Username User</string>
-    <string name="story_description">Deskripsi Story</string>
+    <string name="destination_location">Lokasi</string>
+    <string name="destination_description">Deskripsi Wisata</string>
     <string name="success_register">Berhasil Membuat Akun</string>
     <string name="error_register">Gagal Membuat Akun</string>
     <string name="error_register_by_email">Gagal Membuat Akun: Email Sudah Terdaftar</string>

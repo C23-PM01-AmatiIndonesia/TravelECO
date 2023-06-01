@@ -32,10 +32,10 @@ class ProfileActivity : AppCompatActivity(){
 
         setupModel()
 
-        val email = intent.getStringExtra(LoginActivity.EXTRA_EMAIL)
-        val displayName = intent.getStringExtra(LoginActivity.EXTRA_NAME)
-
-        binding?.tvWelcome?.text = "Hello $displayName, email $email"
+//        val email = intent.getStringExtra(LoginActivity.EXTRA_EMAIL)
+//        val displayName = intent.getStringExtra(LoginActivity.EXTRA_NAME)
+//
+//        binding?.tvWelcome?.text = "Hello $displayName, email $email"
 
 
         binding?.btnLogout?.setOnClickListener {

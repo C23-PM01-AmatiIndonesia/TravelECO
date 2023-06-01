@@ -14,18 +14,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import kotlinx.coroutines.tasks.await
 
-//interface AuthRepository {
-//    fun loginUser(email: String, password: String): Flow<ResponseMessage<AuthResult>>
-//    fun registerUser(name: String, email: String, phoneNumber: String, password: String): Flow<ResponseMessage<AuthResult>>
-//
-//    fun googleSignIn(credential: AuthCredential): Flow<ResponseMessage<AuthResult>>
-//}
-
 class AuthRepository(
     private val authPreference: AuthPreference,
     private val firebaseAuth: FirebaseAuth
 ) {
-
 
     fun loginUser(email: String, password: String): LiveData<ResponseMessage<AuthResult>> = liveData {
         emit(ResponseMessage.Loading())
