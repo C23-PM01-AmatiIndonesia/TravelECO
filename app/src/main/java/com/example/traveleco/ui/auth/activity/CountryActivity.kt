@@ -118,7 +118,7 @@ class CountryActivity : AppCompatActivity() {
                 intent.putExtra(OTP_NUMBER, verificationID)
                 intent.putExtra(PHONE_NUMBER, phoneNumber)
                 intent.putExtra(COUNTRY_USER, country)
-                intent.putExtra(FROM_LOGIN, "true")
+                intent.putExtra(FROM_LOGIN, true)
                 startActivity(intent)
             }
         }

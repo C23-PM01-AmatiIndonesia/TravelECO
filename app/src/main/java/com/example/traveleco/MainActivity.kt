@@ -4,10 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.traveleco.adapter.DestinationAdapter
 import com.example.traveleco.database.Destination
+import com.example.traveleco.database.Users
 import com.example.traveleco.databinding.ActivityMainBinding
 import com.example.traveleco.ui.BucketActivity
 import com.example.traveleco.ui.ProfileActivity
@@ -36,9 +38,6 @@ class MainActivity : AppCompatActivity() {
         bottomNavigation?.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         bottomNavigation?.selectedItemId = R.id.menu_home
 
-//        val email = intent.getStringExtra(LoginActivity.EXTRA_EMAIL)
-//        val displayName = intent.getStringExtra(LoginActivity.EXTRA_NAME)
-
         auth = FirebaseAuth.getInstance()
 
         val layoutManager = LinearLayoutManager(this)
@@ -47,8 +46,22 @@ class MainActivity : AppCompatActivity() {
         destinationArrayList = arrayListOf()
         getDestinationData()
 
-//        val extraName = intent.getStringExtra(LoginActivity.EXTRA_NAME)
-//        Toast.makeText(this@MainActivity, extraName.toString(), Toast.LENGTH_SHORT).show()
+        database = FirebaseDatabase.getInstance().reference.child("users")
+
+        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+        database.child(currentUserUid!!).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val user = snapshot.getValue(Users::class.java)
+                    binding?.tvUsername?.text = user?.name
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("ProfileActivity", "Gagal")
+            }
+        })
 
     }
 
@@ -67,8 +80,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onCancelled(error: DatabaseError) {}
-
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@MainActivity, "Gagal", Toast.LENGTH_SHORT).show()
+            }
         })
     }
 

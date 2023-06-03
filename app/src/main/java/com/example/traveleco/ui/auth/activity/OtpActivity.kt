@@ -75,10 +75,6 @@ class OtpActivity : AppCompatActivity() {
         inputOTP5 = binding!!.otpEditText5
         inputOTP6 = binding!!.otpEditText6
 
-
-//        name = intent.getStringExtra(CountryActivity.NAME_GOOGLE)!!
-//        email = intent.getStringExtra(CountryActivity.EMAIL_GOOGLE)!!
-//        country = intent.getStringExtra(CountryActivity.COUNTRY_USER)!!
         otpNumber = intent.getStringExtra(PhoneActivity.OTP_NUMBER).toString()
 
         @Suppress("DEPRECATION")
@@ -135,14 +131,13 @@ class OtpActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // OTP verification is successful
-                    if (isFromLogin) {
-                        // Perform additional actions if the OTP is from the login process
-                        val currentUserUid = auth.currentUser?.uid!!
-                        val user = Users(name, email, phoneNumber, country, currentUserUid)
-                        database.child(currentUserUid).setValue(user)
-                        val intent = Intent(applicationContext, MainActivity::class.java)
-                        startActivity(intent)
-                    }
+//                    if (isFromLogin) {
+//                        val currentUserUid = auth.currentUser?.uid!!
+//                        val user = Users(name, email, phoneNumber, country, currentUserUid)
+//                        database.child(currentUserUid).setValue(user)
+//                        val intent = Intent(applicationContext, MainActivity::class.java)
+//                        startActivity(intent)
+//                    }
                     // Proceed to RegisterActivity
                     val intent = Intent(applicationContext, RegisterActivity::class.java)
                     intent.putExtra(OTP_NUMBER, otpNumber)

@@ -84,7 +84,7 @@
             android:exported="false" />
         <activity
             android:name=".ui.auth.activity.CountryActivity"
-            android:exported="true" />
+            android:exported="false" />
     </application>
 
 </manifest>

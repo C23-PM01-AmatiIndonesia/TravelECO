@@ -7,12 +7,11 @@ import android.util.Log
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.example.traveleco.MainActivity
-import com.example.traveleco.adapter.DestinationAdapter
+import com.example.traveleco.adapter.ComboTripAdapter
+import com.example.traveleco.adapter.OverNightAdapter
 import com.example.traveleco.adapter.SingleTripAdapter
 import com.example.traveleco.database.*
 import com.example.traveleco.databinding.ActivityDetailBinding
-import com.example.traveleco.ui.auth.activity.PhoneActivity
 import com.example.traveleco.ui.maps.MapsActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -25,6 +24,8 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var singleTrips: ArrayList<SinglePrograms>
+    private lateinit var comboTrips: ArrayList<ComboPrograms>
+    private lateinit var overnightPackage: ArrayList<ListOverNight>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,8 +36,12 @@ class DetailActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
         getDestinationData()
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-        binding?.rvPackageSingle?.layoutManager = layoutManager
+        val layoutManagerListPackage = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManagerComboPackage = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        val layoutManagerOverNightPackage = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding?.rvPackageSingle?.layoutManager = layoutManagerListPackage
+        binding?.rvPackageCombo?.layoutManager = layoutManagerComboPackage
+        binding?.rvPackageNight?.layoutManager = layoutManagerOverNightPackage
 
         binding?.btnLoc?.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java)
@@ -44,7 +49,11 @@ class DetailActivity : AppCompatActivity() {
         }
 
         singleTrips = arrayListOf()
+        comboTrips = arrayListOf()
+        overnightPackage = arrayListOf()
         getListPackage()
+        getComboPackage()
+        getOvernightPackage()
     }
 
     private fun getDestinationData() {
@@ -79,9 +88,28 @@ class DetailActivity : AppCompatActivity() {
                 singleTrips.add(singleTrip!!)
             }
             binding?.rvPackageSingle?.adapter = SingleTripAdapter(singleTrips)
-            for (single in singleTrips) {
-                Log.d("detail activity", "photo : ${single.photo_url}")
+        }
+    }
+
+    private fun getComboPackage() {
+        database = FirebaseDatabase.getInstance().getReference("activity_package").child("combo_trip")
+        database.get().addOnSuccessListener {
+            for (data in it.children) {
+                val comboTrip = data.getValue(ComboPrograms::class.java)
+                comboTrips.add(comboTrip!!)
             }
+            binding?.rvPackageCombo?.adapter = ComboTripAdapter(comboTrips)
+        }
+    }
+
+    private fun getOvernightPackage() {
+        database = FirebaseDatabase.getInstance().getReference("overnight_package")
+        database.get().addOnSuccessListener {
+            for (data in it.children) {
+                val overnight = data.getValue(ListOverNight::class.java)
+                overnightPackage.add(overnight!!)
+            }
+            binding?.rvPackageNight?.adapter = OverNightAdapter(overnightPackage)
         }
     }
 
