@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.auth.activity.LoginActivity">
+    tools:context=".ui.auth.activity.LoginActivity"
+    android:background="@drawable/login_background6">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -26,8 +27,9 @@
                 android:layout_marginEnd="32dp"
                 android:alpha="0"
                 android:text="@string/title_login_page"
-                android:textSize="32sp"
+                android:textSize="28sp"
                 android:textStyle="bold"
+                android:textColor="@color/white"
                 tools:ignore="TextContrastCheck" />
 
             <ProgressBar
@@ -35,7 +37,7 @@
                 style="?android:attr/progressBarStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginBottom="4dp"
                 android:layout_gravity="center"
                 android:visibility="invisible"
@@ -47,7 +49,7 @@
                 style="@style/TextInputOuterFieldStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginStart="32dp"
                 android:layout_marginEnd="32dp"
                 app:hintTextColor="@color/gray_pastel1"

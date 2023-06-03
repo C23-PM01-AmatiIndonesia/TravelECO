@@ -2,22 +2,28 @@ package com.example.traveleco.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.traveleco.MainActivity
 import com.example.traveleco.R
+import com.example.traveleco.database.Users
 import com.example.traveleco.model.ViewModelFactory
 import com.example.traveleco.databinding.ActivityProfileBinding
 import com.example.traveleco.model.AuthViewModel
 import com.example.traveleco.ui.auth.activity.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
 class ProfileActivity : AppCompatActivity(){
     private var _binding: ActivityProfileBinding? = null
     private val binding get() = _binding
+
     private lateinit var auth: FirebaseAuth
+    private lateinit var database: DatabaseReference
     private lateinit var authViewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,16 +40,14 @@ class ProfileActivity : AppCompatActivity(){
 
         setupModel()
 
-        val email = intent.getStringExtra(MainActivity.EXTRA_EMAIL)
-        val displayName = intent.getStringExtra(MainActivity.EXTRA_NAME)
-
-        val emailGoogle = intent.getStringExtra(MainActivity.EMAIL_GOOGLE)
-        val displayNameGoogle = intent.getStringExtra(MainActivity.NAME_GOOGLE)
-
-        binding?.tvUser?.text = "$displayNameGoogle"
-        binding?.tvEmail?.text = "$emailGoogle"
-
-//        binding?.tvWelcome?.text = "Hello $displayName, email $email"
+//        val email = intent.getStringExtra(MainActivity.EXTRA_EMAIL)
+//        val displayName = intent.getStringExtra(MainActivity.EXTRA_NAME)
+//
+//        val emailGoogle = intent.getStringExtra(MainActivity.EMAIL_GOOGLE)
+//        val displayNameGoogle = intent.getStringExtra(MainActivity.NAME_GOOGLE)
+//
+//        binding?.tvUser?.text = "$displayNameGoogle"
+//        binding?.tvEmail?.text = "$emailGoogle"
 
 
         binding?.btnLogout?.setOnClickListener {
@@ -51,6 +55,24 @@ class ProfileActivity : AppCompatActivity(){
         }
 
         auth = FirebaseAuth.getInstance()
+        database = FirebaseDatabase.getInstance().reference.child("users")
+
+        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+        database.child(currentUserUid!!).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    val user = snapshot.getValue(Users::class.java)
+
+                    binding?.tvUser?.text = user?.name
+                    binding?.tvEmail?.text = user?.email
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d("ProfileActivity", "Gagal")
+            }
+        })
     }
 
     @Suppress("DEPRECATION")

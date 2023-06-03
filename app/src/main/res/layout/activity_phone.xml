@@ -29,6 +29,7 @@
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="58dp"
                 android:text="@string/message_signup_page"
+                android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 

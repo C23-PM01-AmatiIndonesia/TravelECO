@@ -4,15 +4,15 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/card_place"
-    android:layout_width="330dp"
+    android:layout_width="270dp"
     android:layout_height="wrap_content"
     android:padding="4dp"
     android:elevation="4dp"
     android:layout_gravity="center"
-    android:layout_marginLeft="8dp"
     android:layout_marginTop="8dp"
-    android:layout_marginRight="8dp"
     android:layout_marginBottom="4dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp"
     card_view:cardCornerRadius="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,33 +25,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:layout_marginStart="4dp"
             android:text="@string/program"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold"
-            card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_program1"
-            android:layout_width="160dp"
+            android:layout_width="match_parent"
             android:layout_height="240dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
             android:contentDescription="@string/img_place"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_program"
-            tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-        <ImageView
-            android:id="@+id/iv_program2"
-            android:layout_width="0dp"
-            android:layout_height="240dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:contentDescription="@string/img_place"
-            card_view:layout_constraintEnd_toStartOf="@+id/iv_program1"
             card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_program"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
@@ -60,12 +48,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="@string/inclussion"
             android:textStyle="bold"
             android:textSize="16sp"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/iv_program2" />
+            card_view:layout_constraintTop_toBottomOf="@+id/iv_program1" />
 
         <TextView
             android:id="@+id/tv_inclussion"
@@ -85,7 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="@string/duration"
             android:textSize="16sp"
             android:textStyle="bold"
@@ -108,7 +96,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:layout_marginEnd="4dp"
             android:text="@string/time"
             android:textSize="16sp"
@@ -130,30 +118,56 @@
             card_view:layout_constraintTop_toBottomOf="@+id/textView11" />
 
         <TextView
-            android:id="@+id/tv_price_combo"
+            android:id="@+id/text_view_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="16dp"
             android:text="@string/price"
-            android:textSize="18sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             android:textColor="@color/red"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_duration" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="140sp"
+        <TextView
+            android:id="@+id/tv_price_combo"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/price"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/red"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_duration" />
+
+        <Button
+            android:id="@+id/btn_add_to_cart"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="@string/add_to_cart"
+            android:textStyle="bold"
+            android:textSize="10sp"
+            android:foreground="@drawable/button_cart"
+            android:background="@android:color/transparent"
+            android:textColor="@color/gray_pastel1"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toBottomOf="@+id/text_view_price" />
+
+        <Button
+            android:id="@+id/btn_order"
+            android:layout_width="145sp"
+            android:layout_height="55dp"
+            android:layout_marginTop="16dp"
             android:text="@string/order"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="15sp"
             android:backgroundTint="@color/green_pastel"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_time" />
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_price_combo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

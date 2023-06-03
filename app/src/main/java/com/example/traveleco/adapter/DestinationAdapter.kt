@@ -39,6 +39,5 @@ class DestinationAdapter(private val listDestination: ArrayList<Destination>) : 
                 val destinationLocation = binding.tvDestinationLocation
                 val destinationDescription = binding.tvDestinationDescription
                 val destinationImage = binding.ivDestination
-
         }
 }

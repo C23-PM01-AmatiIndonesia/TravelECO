@@ -119,4 +119,12 @@
     <string name="acc_number">No Rek. 135 0435 545</string>
     <string name="bucket">Keranjang</string>
     <string name="village">Desa Wisata</string>
+    <string name="single_package_text_view">SingleTrip Package</string>
+    <string name="combo_package_text_view">ComboTrip Package</string>
+    <string name="overnight_package_text_view">ComboTrip Package</string>
+    <string name="rating_text_view">5.0</string>
+    <string name="review_text_view">(7 Reviews)</string>
+    <string name="empty_bucket_message">Keranjang Kamu Kosong</string>
+    <string name="add_to_cart">Tambah ke Keranjang</string>
+    <string name="username">Nama User</string>
 </resources>

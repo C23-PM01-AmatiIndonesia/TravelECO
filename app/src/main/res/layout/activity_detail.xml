@@ -30,10 +30,47 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="@string/place"
-            android:textSize="18sp"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_destination_detail" />
+
+        <LinearLayout
+            android:id="@+id/rating_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="4dp"
+            android:paddingStart="12dp"
+            android:layout_marginEnd="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tv_detail">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/star_icon"
+                android:layout_gravity="center"
+                tools:ignore="ContentDescription,ImageContrastCheck" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:layout_marginEnd="4dp"
+                android:text="@string/rating_text_view" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:text="@string/review_text_view" />
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/imageView4"
@@ -44,7 +81,7 @@
             android:contentDescription="@string/location"
             android:src="@drawable/ic_baseline_location_on_24"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/rating_review" />
 
         <TextView
             android:id="@+id/tv_location"
@@ -53,12 +90,13 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            android:paddingTop="2dp"
             android:text="@string/location"
             android:textColor="@color/gray_pastel1"
-            android:textSize="18sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView4"
-            app:layout_constraintTop_toBottomOf="@+id/tv_detail" />
+            app:layout_constraintTop_toBottomOf="@+id/rating_review" />
 
         <TextView
             android:id="@+id/btn_loc"
@@ -93,7 +131,6 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:background="@color/green_pastel"
             android:elevation="4dp"
             android:outlineAmbientShadowColor="@android:color/black"
             android:outlineSpotShadowColor="@android:color/black"
@@ -113,11 +150,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view3" />
 
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/single_package_text_view"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            app:layout_constraintBottom_toTopOf="@id/detail_layout1"/>
+
         <LinearLayout
             android:id="@+id/detail_layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginTop="38dp"
             app:layout_constraintTop_toBottomOf="@+id/textView8">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -129,11 +180,25 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/combo_package_text_view"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_layout1"
+            app:layout_constraintBottom_toTopOf="@id/detail_layout2"/>
+
         <LinearLayout
             android:id="@+id/detail_layout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginTop="38dp"
             app:layout_constraintTop_toBottomOf="@+id/detail_layout1">
 
             <androidx.recyclerview.widget.RecyclerView
@@ -145,11 +210,25 @@
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="18dp"
+            android:text="@string/overnight_package_text_view"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detail_layout2"
+            app:layout_constraintBottom_toTopOf="@id/detail_layout3"/>
+
         <LinearLayout
             android:id="@+id/detail_layout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_marginTop="38dp"
             app:layout_constraintTop_toBottomOf="@+id/detail_layout2">
 
             <androidx.recyclerview.widget.RecyclerView
