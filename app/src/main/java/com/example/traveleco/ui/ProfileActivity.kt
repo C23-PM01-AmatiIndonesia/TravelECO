@@ -25,6 +25,8 @@ class ProfileActivity : AppCompatActivity(){
         _binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+        supportActionBar?.hide()
+
         val bottomNavigation = binding?.bottomNavigation
         @Suppress("DEPRECATION")
         bottomNavigation?.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
@@ -32,9 +34,15 @@ class ProfileActivity : AppCompatActivity(){
 
         setupModel()
 
-//        val email = intent.getStringExtra(LoginActivity.EXTRA_EMAIL)
-//        val displayName = intent.getStringExtra(LoginActivity.EXTRA_NAME)
-//
+        val email = intent.getStringExtra(MainActivity.EXTRA_EMAIL)
+        val displayName = intent.getStringExtra(MainActivity.EXTRA_NAME)
+
+        val emailGoogle = intent.getStringExtra(MainActivity.EMAIL_GOOGLE)
+        val displayNameGoogle = intent.getStringExtra(MainActivity.NAME_GOOGLE)
+
+        binding?.tvUser?.text = "$displayNameGoogle"
+        binding?.tvEmail?.text = "$emailGoogle"
+
 //        binding?.tvWelcome?.text = "Hello $displayName, email $email"
 
 
@@ -82,5 +90,13 @@ class ProfileActivity : AppCompatActivity(){
         finish()
     }
 
+    override fun onBackPressed() {
+        finishAffinity()
+    }
+
+    companion object {
+        const val EXTRA_EMAIL = "extra_email"
+        const val EXTRA_NAME = "extra_name"
+    }
 
 }

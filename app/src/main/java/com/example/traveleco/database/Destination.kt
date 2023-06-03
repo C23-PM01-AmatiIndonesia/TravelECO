@@ -5,5 +5,5 @@ data class Destination(
     var location: String? = null,
     var shortDescription: String? = null,
     var longDescription: String? = null,
-    var photoUrl: String? = null
+    var photo_url: String? = null
 )

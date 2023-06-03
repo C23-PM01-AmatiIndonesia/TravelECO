@@ -200,5 +200,7 @@ class RegisterActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "Register_Activity"
         private const val USERS_CHILD = "users"
+        const val EXTRA_EMAIL = "extra_email"
+        const val EXTRA_NAME = "extra_name"
     }
 }

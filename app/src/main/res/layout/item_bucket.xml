@@ -20,58 +20,57 @@
         android:layout_height="wrap_content"
         android:padding="4dp">
 
+        <TextView
+            android:id="@+id/tv_program"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/program"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            card_view:layout_constraintStart_toEndOf="@+id/iv_program"
+            card_view:layout_constraintTop_toTopOf="@+id/iv_program" />
+
         <ImageView
-            android:id="@+id/iv_destination"
+            android:id="@+id/iv_program"
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
+            android:layout_marginEnd="200dp"
+            android:contentDescription="@string/img_place"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/backgrounds/scenic"
-            android:contentDescription="@string/img_place" />
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         <TextView
-            android:id="@+id/tv_destination_name"
+            android:id="@+id/tv_price_bucket"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
-            android:text="@string/place"
-            android:textStyle="bold"
+            android:text="@string/price"
+            android:textColor="@color/red"
             android:textSize="18sp"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/iv_destination" />
+            android:textStyle="bold"
+            card_view:layout_constraintStart_toEndOf="@+id/iv_program"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_program" />
 
-        <TextView
-            android:id="@+id/tv_destination_location"
+        <Button
+            android:id="@+id/button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="4dp"
-            android:text="@string/destination_location"
-            android:textSize="12sp"
+            android:backgroundTint="@color/green_pastel"
+            android:text="@string/order"
+            android:textSize="18sp"
             android:textStyle="bold"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_destination_name" />
-
-        <TextView
-            android:id="@+id/tv_destination_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="4dp"
-            android:text="@string/destination_description"
-            android:textSize="16sp"
-            android:textStyle="normal"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_destination_location" />
+            card_view:layout_constraintStart_toEndOf="@+id/iv_program"
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_price_bucket" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

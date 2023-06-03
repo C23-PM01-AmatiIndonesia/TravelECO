@@ -90,8 +90,8 @@
                     style="@style/TextInputInnerFieldStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_phoneNumber_register"
-                    android:inputType="phone"
+                    android:hint="@string/hint_country_register"
+                    android:inputType="text"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     tools:ignore="VisualLintTextFieldSize,SpeakableTextPresentCheck,TouchTargetSizeCheck" />

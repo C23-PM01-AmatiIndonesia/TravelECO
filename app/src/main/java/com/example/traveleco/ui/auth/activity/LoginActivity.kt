@@ -112,8 +112,10 @@ class LoginActivity : AppCompatActivity() {
                                     )
                                 )
                                 if (auth.currentUser!!.isEmailVerified) {
-                                    val intent =
-                                        Intent(this@LoginActivity, MainActivity::class.java)
+                                    val extraName = response.data?.user?.displayName
+                                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                    intent.putExtra(EXTRA_NAME, extraName)
+                                    intent.putExtra(EXTRA_EMAIL, email)
                                     startActivity(intent)
                                 } else {
                                     Toast.makeText(
@@ -181,9 +183,9 @@ class LoginActivity : AppCompatActivity() {
                                 )
                             )
                             Log.d("LoginActivity", "Memulai MainActivity")
-                            val intent = Intent(this@LoginActivity, CountryActivity::class.java)
-                            intent.putExtra(NAME_GOOGLE, account.displayName)
-                            intent.putExtra(EMAIL_GOOGLE, account.email)
+                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                            intent.putExtra(NAME_GOOGLE, account.displayName.toString())
+                            intent.putExtra(EMAIL_GOOGLE, account.email.toString())
                             startActivity(intent)
                             finish()
                         }

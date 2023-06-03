@@ -84,7 +84,7 @@ class OtpActivity : AppCompatActivity() {
         @Suppress("DEPRECATION")
         resendToken = intent.getParcelableExtra(PhoneActivity.RESEND_TOKEN)!!
         phoneNumber = intent.getStringExtra(PhoneActivity.PHONE_NUMBER)!!
-        isFromLogin = intent.getBooleanExtra(CountryActivity.FROM_LOGIN, false)
+        isFromLogin = intent.getBooleanExtra(CountryActivity.FROM_LOGIN, true)
 
         playAnimation()
         addTextChangeListener()

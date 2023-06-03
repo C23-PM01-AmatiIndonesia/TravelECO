@@ -4,11 +4,9 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import com.example.traveleco.adapter.DestinationAdapter
 import com.example.traveleco.database.Destination
 import com.example.traveleco.databinding.ActivityMainBinding
 import com.example.traveleco.ui.BucketActivity
@@ -17,7 +15,6 @@ import com.example.traveleco.ui.auth.activity.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.google.firebase.storage.StorageReference
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,14 +29,15 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+        supportActionBar?.hide()
 
         val bottomNavigation = binding?.bottomNavigation
         @Suppress("DEPRECATION")
         bottomNavigation?.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         bottomNavigation?.selectedItemId = R.id.menu_home
 
-        val email = intent.getStringExtra(LoginActivity.EXTRA_EMAIL)
-        val displayName = intent.getStringExtra(LoginActivity.EXTRA_NAME)
+//        val email = intent.getStringExtra(LoginActivity.EXTRA_EMAIL)
+//        val displayName = intent.getStringExtra(LoginActivity.EXTRA_NAME)
 
         auth = FirebaseAuth.getInstance()
 
@@ -49,6 +47,8 @@ class MainActivity : AppCompatActivity() {
         destinationArrayList = arrayListOf()
         getDestinationData()
 
+//        val extraName = intent.getStringExtra(LoginActivity.EXTRA_NAME)
+//        Toast.makeText(this@MainActivity, extraName.toString(), Toast.LENGTH_SHORT).show()
 
     }
 
@@ -84,16 +84,33 @@ class MainActivity : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.menu_profile -> {
-                    startActivity(Intent(this, ProfileActivity::class.java))
+                    val email = intent.getStringExtra(LoginActivity.EXTRA_EMAIL)
+                    val displayName = intent.getStringExtra(LoginActivity.EXTRA_NAME)
+                    val emailGoogle = intent.getStringExtra(LoginActivity.EMAIL_GOOGLE)
+                    val displayNameGoogle = intent.getStringExtra(LoginActivity.NAME_GOOGLE)
+                    val intent = Intent(this, ProfileActivity::class.java)
+                    intent.putExtra(EXTRA_NAME, displayName)
+                    intent.putExtra(EXTRA_EMAIL, email)
+                    intent.putExtra(NAME_GOOGLE, displayNameGoogle)
+                    intent.putExtra(EMAIL_GOOGLE, emailGoogle)
+                    startActivity(intent)
                     return@OnNavigationItemSelectedListener true
                 }
             }
             false
         }
 
+//    override fun onBackPressed() {
+//        moveTaskToBack(true)
+//    }
+
     companion object {
         private const val TAG = "DetailActivity"
         private const val DATABASE_NAME = "destination"
+        const val EXTRA_EMAIL = "extra_email"
+        const val EXTRA_NAME = "extra_name"
+        const val NAME_GOOGLE = "name_google"
+        const val EMAIL_GOOGLE = "email_google"
     }
 
 }

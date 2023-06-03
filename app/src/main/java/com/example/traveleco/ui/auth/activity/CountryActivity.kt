@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.traveleco.R
 import com.example.traveleco.databinding.ActivityCountryBinding
 import com.example.traveleco.model.AuthViewModel
+import com.example.traveleco.model.ViewModelFactory
 import com.example.traveleco.ui.customview.EditButton
 import com.example.traveleco.ui.customview.EditText
 import com.google.firebase.FirebaseException
@@ -39,7 +40,7 @@ class CountryActivity : AppCompatActivity() {
     private lateinit var country: String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    private lateinit var authViewModel: AuthViewModel
+//    private lateinit var authViewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +59,9 @@ class CountryActivity : AppCompatActivity() {
             )
         }
 
-        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+//        setupModel()
+
+//        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
 
         val nameWithGoogle = intent.getStringExtra(LoginActivity.NAME_GOOGLE)
         val emailWithGoogle = intent.getStringExtra(LoginActivity.EMAIL_GOOGLE)
@@ -142,14 +145,20 @@ class CountryActivity : AppCompatActivity() {
     private fun playAnimation() {
         val message = ObjectAnimator.ofFloat(binding?.messageTextView, View.ALPHA, 1F).setDuration(500)
         val phoneNumber = ObjectAnimator.ofFloat(binding?.phoneLayout, View.ALPHA, 1F).setDuration(500)
+        val country = ObjectAnimator.ofFloat(binding?.countryLayout, View.ALPHA, 1F).setDuration(500)
         val btnRegister = ObjectAnimator.ofFloat(binding?.btnSignup, View.ALPHA, 1F).setDuration(500)
         val bottomText = ObjectAnimator.ofFloat(binding?.tableLayout, View.ALPHA, 1F).setDuration(500)
 
         AnimatorSet().apply {
-            playSequentially(message, phoneNumber, btnRegister, bottomText)
+            playSequentially(message, phoneNumber, country, btnRegister, bottomText)
             startDelay = 500
         }.start()
     }
+
+//    private fun setupModel() {
+//        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
+//        authViewModel = ViewModelProvider(this, factory)[AuthViewModel::class.java]
+//    }
 
     companion object {
         const val COUNTRY_USER = "country_user"

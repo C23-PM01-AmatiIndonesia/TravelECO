@@ -9,6 +9,8 @@ import com.example.traveleco.MainActivity
 import com.example.traveleco.R
 import com.example.traveleco.databinding.ActivityBucketBinding
 import com.example.traveleco.ui.auth.activity.LoginActivity
+import com.example.traveleco.ui.auth.activity.PhoneActivity
+import com.example.traveleco.ui.order.OrderActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 
@@ -28,11 +30,12 @@ class BucketActivity : AppCompatActivity(){
         bottomNavigation?.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         bottomNavigation?.selectedItemId = R.id.menu_add_to_cart
 
+        supportActionBar?.hide()
 
-        val email = intent.getStringExtra(LoginActivity.EXTRA_EMAIL)
-        val displayName = intent.getStringExtra(LoginActivity.EXTRA_NAME)
+//        val email = intent.getStringExtra(LoginActivity.EXTRA_EMAIL)
+//        val displayName = intent.getStringExtra(LoginActivity.EXTRA_NAME)
 
-        binding?.tvWelcome?.text = "Hello $displayName, email $email"
+//        binding?.tvWelcome?.text = "Hello $displayName, email $email"
 
         auth = FirebaseAuth.getInstance()
     }
@@ -70,6 +73,10 @@ class BucketActivity : AppCompatActivity(){
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onBackPressed() {
+        finishAffinity()
     }
 
     private fun signOut() {
