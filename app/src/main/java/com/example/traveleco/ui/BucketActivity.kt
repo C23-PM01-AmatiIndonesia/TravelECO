@@ -86,6 +86,10 @@ class BucketActivity : AppCompatActivity(){
                 R.id.menu_add_to_cart -> {
                     return@OnNavigationItemSelectedListener true
                 }
+                R.id.menu_receipt -> {
+                    startActivity(Intent(this, ReceiptActivity::class.java))
+                    return@OnNavigationItemSelectedListener true
+                }
                 R.id.menu_profile -> {
                     startActivity(Intent(this, ProfileActivity::class.java))
                     return@OnNavigationItemSelectedListener true

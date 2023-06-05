@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.traveleco.database.Users
 import com.example.traveleco.databinding.ActivityOrderBinding
 import com.example.traveleco.ui.auth.activity.LoginActivity
+import com.google.android.gms.common.internal.service.Common.CLIENT_KEY
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -15,7 +16,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.midtrans.sdk.corekit.core.MidtransSDK
 import com.midtrans.sdk.corekit.core.TransactionRequest
+import com.midtrans.sdk.corekit.core.themes.CustomColorTheme
 import com.midtrans.sdk.corekit.models.CustomerDetails
+import com.midtrans.sdk.uikit.SdkUIFlowBuilder
 
 
 class PaymentMidtrans : AppCompatActivity() {
@@ -33,6 +36,24 @@ class PaymentMidtrans : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityOrderBinding.inflate(layoutInflater)
         setContentView(binding?.root)
+
+        SdkUIFlowBuilder.init()
+            .setClientKey("SB-Mid-client-EV6tyZrK3OzoMgJ3") // client_key is mandatory
+            .setContext(applicationContext) // context is mandatory
+            .setTransactionFinishedCallback {
+                // Handle finished transaction here.
+            } // set transaction finish callback (sdk callback)
+            .setMerchantBaseUrl("https://midtrans-api-jl4gfhbdkq-as.a.run.app/index.php/") //set merchant url (required)
+            .enableLog(true) // enable sdk log (optional)
+            .setColorTheme(
+                CustomColorTheme(
+                    "#FFE51255",
+                    "#B61548",
+                    "#FFE51255"
+                )
+            ) // set theme. it will replace theme on snap theme on MAP ( optional)
+            .setLanguage("en") //`en` for English and `id` for Bahasa
+            .buildSDK()
 
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference.child("users")

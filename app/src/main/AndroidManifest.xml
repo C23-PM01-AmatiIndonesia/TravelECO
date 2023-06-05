@@ -3,11 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
@@ -20,6 +18,9 @@
         android:theme="@style/Theme.TravelEco"
         tools:replace="android:allowBackup"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.ReceiptActivity"
+            android:exported="false" />
 
         <receiver android:name=".ui.maps.GeofenceBroadcastReceiver" />
 
@@ -52,7 +53,7 @@
         <activity
             android:name=".ui.detail.DetailActivity"
             android:exported="false"
-            android:label="@string/village"/>
+            android:label="@string/village" />
         <activity
             android:name=".ui.SplashScreenActivity"
             android:exported="true">
@@ -86,6 +87,7 @@
         <activity
             android:name=".ui.auth.activity.CountryActivity"
             android:exported="false" />
+        <activity android:name=".ui.payment.PaymentMidtrans" />
     </application>
 
 </manifest>

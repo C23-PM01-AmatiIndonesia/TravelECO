@@ -15,6 +15,7 @@ import com.example.traveleco.databinding.ActivityMainBinding
 import com.example.traveleco.ui.BucketActivity
 import com.example.traveleco.ui.ProfileActivity
 import com.example.traveleco.ui.auth.activity.LoginActivity
+import com.example.traveleco.ui.ReceiptActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var destinationArrayList: ArrayList<Destination>
-    private var isFromLogin: Boolean = false
+    private  var isFromLogin: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +49,8 @@ class MainActivity : AppCompatActivity() {
         destinationArrayList = arrayListOf()
         getDestinationData()
 
+//        val nameWithGoogle = intent.getStringExtra(LoginActivity.NAME_GOOGLE)
         isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
-
         val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
         val displayName = sharedPref.getString("displayName", "")
 
@@ -72,6 +73,9 @@ class MainActivity : AppCompatActivity() {
                 Log.d("ProfileActivity", "Gagal")
             }
         })
+
+
+
     }
 
     private fun getDestinationData() {
@@ -106,10 +110,16 @@ class MainActivity : AppCompatActivity() {
                     startActivity(Intent(this, BucketActivity::class.java))
                     return@OnNavigationItemSelectedListener true
                 }
+                R.id.menu_receipt -> {
+                    startActivity(Intent(this, ReceiptActivity::class.java))
+                    return@OnNavigationItemSelectedListener true
+                }
                 R.id.menu_profile -> {
+
                     val emailGoogle = intent.getStringExtra(LoginActivity.EMAIL_GOOGLE)
                     val displayNameGoogle = intent.getStringExtra(LoginActivity.NAME_GOOGLE)
                     val intent = Intent(this, ProfileActivity::class.java)
+                    intent.putExtra(FROM_LOGIN, isFromLogin)
                     intent.putExtra(NAME_GOOGLE, displayNameGoogle)
                     intent.putExtra(EMAIL_GOOGLE, emailGoogle)
                     startActivity(intent)
@@ -126,8 +136,11 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "DetailActivity"
         private const val DATABASE_NAME = "destination"
+        const val EXTRA_EMAIL = "extra_email"
+        const val EXTRA_NAME = "extra_name"
         const val NAME_GOOGLE = "name_google"
         const val EMAIL_GOOGLE = "email_google"
+        const val FROM_LOGIN = "from_login"
     }
 
 }

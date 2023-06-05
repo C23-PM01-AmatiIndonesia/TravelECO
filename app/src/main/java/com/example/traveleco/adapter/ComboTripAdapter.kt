@@ -1,5 +1,6 @@
 package com.example.traveleco.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.traveleco.database.ComboPrograms
 import com.example.traveleco.database.ListBucket
 import com.example.traveleco.databinding.ItemComboBinding
+import com.example.traveleco.ui.payment.PaymentMidtrans
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -35,6 +37,12 @@ class ComboTripAdapter(private val comboTrips: List<ComboPrograms>) :
         holder.tvItem.text = comboTrip.start_time
         holder.priceCombo.text = comboTrip.nett_price
         Glide.with(holder.itemView).load(comboTrip.photo_url).into(holder.ivProgram)
+        holder.btnOrder.setOnClickListener {
+            val intent = Intent(holder.itemView.context, PaymentMidtrans::class.java)
+            intent.putExtra("Price", comboTrip.nett_price)
+            intent.putExtra("Program", comboTrip.activity_name)
+            holder.itemView.context.startActivity(intent)
+        }
         holder.btnAddToCart.setOnClickListener {
             val packageName = comboTrip.activity_name.toString()
             val packageDesc = comboTrip.inclussion.toString()

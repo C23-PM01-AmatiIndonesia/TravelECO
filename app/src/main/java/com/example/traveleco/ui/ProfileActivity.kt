@@ -93,6 +93,10 @@ class ProfileActivity : AppCompatActivity(){
                     startActivity(Intent(this, BucketActivity::class.java))
                     return@OnNavigationItemSelectedListener true
                 }
+                R.id.menu_receipt -> {
+                    startActivity(Intent(this, ReceiptActivity::class.java))
+                    return@OnNavigationItemSelectedListener true
+                }
                 R.id.menu_profile -> {
                     return@OnNavigationItemSelectedListener true
                 }

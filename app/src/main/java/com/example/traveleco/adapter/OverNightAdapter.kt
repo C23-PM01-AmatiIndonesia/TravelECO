@@ -1,5 +1,6 @@
 package com.example.traveleco.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.traveleco.database.ListBucket
 import com.example.traveleco.database.ListOverNight
 import com.example.traveleco.databinding.ItemOvernightBinding
+import com.example.traveleco.ui.payment.PaymentMidtrans
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -32,6 +34,12 @@ class OverNightAdapter(private val overNight: List<ListOverNight>) : RecyclerVie
         holder.tvDescription.text = overNight.description
         holder.tvPriceSingle.text = overNight.nett_price
         Glide.with(holder.itemView).load(overNight.photo_url).into(holder.ivProgram)
+        holder.btnOrder.setOnClickListener {
+            val intent = Intent(holder.itemView.context, PaymentMidtrans::class.java)
+            intent.putExtra("Price", overNight.nett_price)
+            intent.putExtra("Program", overNight.package_name)
+            holder.itemView.context.startActivity(intent)
+        }
         holder.btnAddToCart.setOnClickListener {
             val packageName = overNight.package_name.toString()
             val packageDesc = overNight.description.toString()

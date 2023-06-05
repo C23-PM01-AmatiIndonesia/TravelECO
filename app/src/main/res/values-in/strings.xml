@@ -123,4 +123,6 @@
     <string name="del_cart">Hapus dari Keranjang</string>
     <string name="username">Nama User</string>
     <string name="about_app">TravelECO adalah platform digital yang menghubungkan wisatawan dengan pilihan perjalanan yang berkelanjutan dan ramah lingkungan. Platform ini memanfaatkan teknologi penandaan geografis untuk mengidentifikasi dan mempromosikan destinasi, akomodasi, aktivitas, dan operator tur yang memprioritaskan pelestarian lingkungan dan meminimalkan jejak karbon mereka.\nTujuan utama dari platform pasar ekowisata yang berbasis penandaan geografis dan jejak karbon adalah untuk mempromosikan pariwisata yang berkelanjutan dan bertanggung jawab sambil meminimalkan dampak negatif terhadap lingkungan. Dengan menghubungkan wisatawan yang sadar lingkungan dengan pilihan wisata berkelanjutan yang terverifikasi, platform ini bertujuan untuk menciptakan pasar yang mendukung dan mendorong praktik pariwisata yang ramah lingkungan.</string>
+    <string name="receipt">Pesanan</string>
+    <string name="status">Status</string>
 </resources>

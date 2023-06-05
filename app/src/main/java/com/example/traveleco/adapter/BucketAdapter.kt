@@ -1,5 +1,6 @@
 package com.example.traveleco.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.traveleco.database.ListBucket
 import com.example.traveleco.databinding.ItemBucketBinding
+import com.example.traveleco.ui.payment.PaymentMidtrans
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.getValue
@@ -31,6 +33,12 @@ class BucketAdapter(private val listBucket: ArrayList<ListBucket>) : RecyclerVie
         Glide.with(holder.itemView)
             .load(favorite.photo_url)
             .into(holder.packageImage)
+        holder.btnOrder.setOnClickListener {
+            val intent = Intent(holder.itemView.context, PaymentMidtrans::class.java)
+            intent.putExtra("Price", favorite.packagePrice)
+            intent.putExtra("Program", favorite.packageName)
+            holder.itemView.context.startActivity(intent)
+        }
         holder.btnDeleteItem.setOnClickListener {
             // Hapus item dari tampilan
             val itemPosition = holder.adapterPosition
@@ -89,5 +97,6 @@ class BucketAdapter(private val listBucket: ArrayList<ListBucket>) : RecyclerVie
         val packagePrice = binding.tvPriceOver
         val packageImage = binding.ivProgram
         val btnDeleteItem = binding.btnDeleteItem
+        val btnOrder = binding.btnOrder
     }
 }
