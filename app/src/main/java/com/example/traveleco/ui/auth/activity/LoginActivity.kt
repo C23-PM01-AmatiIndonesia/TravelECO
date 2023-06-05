@@ -3,6 +3,7 @@ package com.example.traveleco.ui.auth.activity
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
+import android.provider.Settings
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -91,6 +93,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupAction() {
         binding?.apply {
+            btnChangeLanguage.setOnClickListener {
+                val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivity(intent)
+            }
             loginButton = btnLogin
             loginButton.setOnClickListener {
                 if (loginEmail.error == null
@@ -184,8 +190,12 @@ class LoginActivity : AppCompatActivity() {
                             )
                             Log.d("LoginActivity", "Memulai MainActivity")
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                            intent.putExtra(NAME_GOOGLE, account.displayName.toString())
-                            intent.putExtra(EMAIL_GOOGLE, account.email.toString())
+                            val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+                            val editor = sharedPref.edit()
+                            editor.putString("displayName", account.displayName.toString())
+                            editor.putString("email", account.email.toString())
+                            intent.putExtra(FROM_LOGIN, true)
+                            editor.apply()
                             startActivity(intent)
                             finish()
                         }
@@ -239,6 +249,7 @@ class LoginActivity : AppCompatActivity() {
         const val EXTRA_NAME = "extra_name"
         const val NAME_GOOGLE = "name_google"
         const val EMAIL_GOOGLE = "email_google"
+        const val FROM_LOGIN = "from_login"
     }
 
 }

@@ -122,26 +122,26 @@
 
         <Button
             android:id="@+id/btn_add_to_cart"
-            android:layout_width="150sp"
+            android:layout_width="160sp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
-            android:text="@string/add_to_cart"
-            android:textStyle="bold"
-            android:textSize="10sp"
-            android:foreground="@drawable/button_cart"
+            android:layout_marginTop="16dp"
             android:background="@android:color/transparent"
+            android:foreground="@drawable/button_cart"
+            android:text="@string/add_to_cart"
             android:textColor="@color/gray_pastel1"
+            android:textSize="12sp"
+            android:textStyle="bold"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/text_view_price" />
 
         <Button
             android:id="@+id/btn_order"
-            android:layout_width="170sp"
-            android:layout_height="55dp"
+            android:layout_width="180sp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/order"
             android:textStyle="bold"
-            android:textSize="15sp"
+            android:textSize="16sp"
             android:backgroundTint="@color/green_pastel"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_price_over" />

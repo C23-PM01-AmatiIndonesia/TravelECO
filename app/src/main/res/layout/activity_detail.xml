@@ -227,7 +227,6 @@
             android:id="@+id/detail_layout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="38dp"
             app:layout_constraintTop_toBottomOf="@+id/detail_layout2">
 
@@ -235,7 +234,6 @@
                 android:id="@+id/rv_package_night"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 tools:listitem="@layout/item_overnight"/>
 
         </LinearLayout>

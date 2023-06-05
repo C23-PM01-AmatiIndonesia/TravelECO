@@ -1,5 +1,6 @@
 package com.example.traveleco.ui
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -25,6 +26,7 @@ class ProfileActivity : AppCompatActivity(){
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var authViewModel: AuthViewModel
+    private var isFromLogin: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,16 +42,6 @@ class ProfileActivity : AppCompatActivity(){
 
         setupModel()
 
-//        val email = intent.getStringExtra(MainActivity.EXTRA_EMAIL)
-//        val displayName = intent.getStringExtra(MainActivity.EXTRA_NAME)
-//
-//        val emailGoogle = intent.getStringExtra(MainActivity.EMAIL_GOOGLE)
-//        val displayNameGoogle = intent.getStringExtra(MainActivity.NAME_GOOGLE)
-//
-//        binding?.tvUser?.text = "$displayNameGoogle"
-//        binding?.tvEmail?.text = "$emailGoogle"
-
-
         binding?.btnLogout?.setOnClickListener {
             signOut()
         }
@@ -57,7 +49,19 @@ class ProfileActivity : AppCompatActivity(){
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference.child("users")
 
+//        val emailGoogle = intent.getStringExtra(LoginActivity.EMAIL_GOOGLE)
+//        val displayNameGoogle = intent.getStringExtra(LoginActivity.NAME_GOOGLE)
+        isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
+        val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+        val displayName = sharedPref.getString("displayName", "")
+        val email = sharedPref.getString("email", "")
+
         val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+
+        if (isFromLogin) {
+            binding?.tvUser?.text = displayName
+            binding?.tvEmail?.text = email
+        }
         database.child(currentUserUid!!).addListenerForSingleValueEvent(object :
             ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -73,6 +77,7 @@ class ProfileActivity : AppCompatActivity(){
                 Log.d("ProfileActivity", "Gagal")
             }
         })
+
     }
 
     @Suppress("DEPRECATION")

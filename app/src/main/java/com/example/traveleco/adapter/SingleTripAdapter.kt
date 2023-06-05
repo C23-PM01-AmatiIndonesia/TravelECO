@@ -1,5 +1,6 @@
 package com.example.traveleco.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -8,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.example.traveleco.database.ListBucket
 import com.example.traveleco.database.SinglePrograms
 import com.example.traveleco.databinding.ItemSingleBinding
+import com.example.traveleco.ui.payment.PaymentMidtrans
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -35,6 +37,12 @@ class SingleTripAdapter(private val singleTrips: List<SinglePrograms>) : Recycle
         holder.tvLevel.text = singleTrip.level
         holder.tvPriceSingle.text = singleTrip.nett_price
         Glide.with(holder.itemView).load(singleTrip.photo_url).into(holder.ivProgram)
+        holder.btnOrder.setOnClickListener {
+            val intent = Intent(holder.itemView.context, PaymentMidtrans::class.java)
+            intent.putExtra("Price", singleTrip.nett_price)
+            intent.putExtra("Program", singleTrip.activity_type)
+            holder.itemView.context.startActivity(intent)
+        }
         holder.btnAddToCart.setOnClickListener {
             val packageName = singleTrip.activity_name.toString()
             val packageDesc = singleTrip.inclussion.toString()
