@@ -6,12 +6,25 @@ import android.os.Bundle
 import android.view.Menu
 import com.example.traveleco.MainActivity
 import com.example.traveleco.R
+import com.example.traveleco.databinding.ActivityProfileBinding
+import com.example.traveleco.databinding.ActivityReceiptBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ReceiptActivity : AppCompatActivity() {
+    private var _binding: ActivityReceiptBinding? = null
+    private val binding get() = _binding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_receipt)
+        _binding = ActivityReceiptBinding.inflate(layoutInflater)
+        setContentView(binding?.root)
+
+        supportActionBar?.hide()
+
+        val bottomNavigation = binding?.bottomNavigation
+        @Suppress("DEPRECATION")
+        bottomNavigation?.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        bottomNavigation?.selectedItemId = R.id.menu_receipt
+
     }
 
     @Suppress("DEPRECATION")
