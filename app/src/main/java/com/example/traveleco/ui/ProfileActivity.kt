@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.traveleco.MainActivity
@@ -52,9 +51,11 @@ class ProfileActivity : AppCompatActivity(){
 //        val emailGoogle = intent.getStringExtra(LoginActivity.EMAIL_GOOGLE)
 //        val displayNameGoogle = intent.getStringExtra(LoginActivity.NAME_GOOGLE)
         isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
+
         val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
         val displayName = sharedPref.getString("displayName", "")
         val email = sharedPref.getString("email", "")
+        isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
 
         val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
 

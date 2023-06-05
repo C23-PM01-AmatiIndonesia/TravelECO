@@ -118,10 +118,13 @@ class LoginActivity : AppCompatActivity() {
                                     )
                                 )
                                 if (auth.currentUser!!.isEmailVerified) {
-                                    val extraName = response.data?.user?.displayName
                                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                                    intent.putExtra(EXTRA_NAME, extraName)
-                                    intent.putExtra(EXTRA_EMAIL, email)
+                                    val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+                                    val editor = sharedPref.edit()
+                                    editor.putString("displayName", email)
+                                    editor.putString("email", password)
+                                    intent.putExtra(FROM_LOGIN, true)
+                                    editor.apply()
                                     startActivity(intent)
                                 } else {
                                     Toast.makeText(
