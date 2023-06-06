@@ -118,8 +118,13 @@ class PaymentMidtrans : AppCompatActivity() {
         userCountry = binding?.etCountry?.text.toString()
         phoneNumber = binding?.etPhone?.text.toString()
 
+        val orderId = "TravelECO-"+System.currentTimeMillis().toString() + ""
+        val sharedPref = getSharedPreferences("orderId", Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putString("order_id", orderId)
+
         val nameProgram = intent.getStringExtra("SubProgram")
-        val transactionRequest = TransactionRequest("TravelECO-"+System.currentTimeMillis().toString() + "", times!!)
+        val transactionRequest = TransactionRequest(orderId, times!!)
         val detail = com.midtrans.sdk.corekit.models.ItemDetails(System.currentTimeMillis().toString(), convertPrice, convertPerson, nameProgram)
         val itemDetails = ArrayList<com.midtrans.sdk.corekit.models.ItemDetails>()
         itemDetails.add(detail)

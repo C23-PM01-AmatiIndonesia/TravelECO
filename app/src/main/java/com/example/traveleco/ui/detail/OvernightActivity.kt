@@ -1,5 +1,6 @@
 package com.example.traveleco.ui.detail
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,6 +15,9 @@ import com.example.traveleco.ui.payment.PaymentMidtrans
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class OvernightActivity : AppCompatActivity() {
 
@@ -95,12 +99,18 @@ class OvernightActivity : AppCompatActivity() {
         getOverNightData()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getOverNightData() {
         val program = intent.getStringExtra("Program")
         val photo = intent.getStringExtra("Photo")
         val duration = intent.getStringExtra("Duration")
         val desc = intent.getStringExtra("Description")
         val price = intent.getStringExtra("Price")
+        val priceToInt = price?.toInt()
+        val numberFormat = NumberFormat.getNumberInstance(Locale("id", "ID"))
+        val formattedPrice = numberFormat.format(priceToInt)
+        formattedPrice.toString()
+
 
         binding?.tvProgram?.text = program
         Glide.with(applicationContext)
@@ -108,6 +118,6 @@ class OvernightActivity : AppCompatActivity() {
             .into(binding!!.ivProgram)
         binding?.tvDuration?.text = duration
         binding?.tvDescription?.text = desc
-        binding?.tvPriceOver?.text = price
+        binding?.tvPriceOver?.text = "Rp $formattedPrice /Pack/Nett"
     }
 }

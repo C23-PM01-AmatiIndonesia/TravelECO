@@ -1,5 +1,6 @@
 package com.example.traveleco.ui.detail
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -22,6 +23,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.text.NumberFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class SingleActivity : AppCompatActivity() {
 
@@ -105,6 +109,7 @@ class SingleActivity : AppCompatActivity() {
         getSingleData()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun getSingleData() {
         val program = intent.getStringExtra("Program")
         val photo = intent.getStringExtra("Photo")
@@ -114,6 +119,10 @@ class SingleActivity : AppCompatActivity() {
         val level = intent.getStringExtra("Level")
         val inclussion = intent.getStringExtra("Inclussion")
         val price = intent.getStringExtra("Price")
+        val priceToInt = price?.toInt()
+        val numberFormat = NumberFormat.getNumberInstance(Locale("id", "ID"))
+        val formattedPrice = numberFormat.format(priceToInt)
+        formattedPrice.toString()
 
         binding?.tvProgram?.text = program
         Glide.with(applicationContext)
@@ -124,7 +133,7 @@ class SingleActivity : AppCompatActivity() {
         binding?.tvDuration?.text = duration
         binding?.tvLevel?.text = level
         binding?.tvInclussion?.text = inclussion
-        binding?.tvPriceSingle?.text = price
+        binding?.tvPriceSingle?.text = "Rp $formattedPrice /Pack"
 
     }
 
