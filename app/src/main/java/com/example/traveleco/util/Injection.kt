@@ -18,8 +18,4 @@ object Injection {
         val firebaseAuth = FirebaseAuth.getInstance(FirebaseApp.getInstance())
         return AuthRepository.getInstance(authPreference, firebaseAuth)
     }
-//    fun provideMainRepository(): DestinationRepository {
-//        val database = FirebaseDatabase.getInstance()
-//        return DestinationRepository.getInstance(database)
-//    }
 }

@@ -65,6 +65,7 @@
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     tools:ignore="VisualLintTextFieldSize,SpeakableTextPresentCheck" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -90,6 +91,7 @@
                     android:paddingEnd="16dp"
                     app:passwordToggleEnabled="true"
                     tools:ignore="VisualLintTextFieldSize,SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.example.traveleco.ui.customview.EditButton
@@ -127,7 +129,6 @@
                 android:layout_height="64dp"
                 android:layout_marginTop="18dp"
                 android:layout_gravity="center">
-
             </com.google.android.gms.common.SignInButton>
 
         </LinearLayout>

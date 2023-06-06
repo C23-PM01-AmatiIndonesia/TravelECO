@@ -124,4 +124,10 @@
     <string name="about_app">TravelECO is a digital platform that connects travelers with sustainable and eco-friendly travel options. It leverages geo-tagging technology to identify and promote destinations, accommodations, activities, and tour operators that prioritize environmental conservation and minimize their carbon footprint.\nThe main goal of an ecotourism marketplace platform based on geo-tagging and carbon footprint is to promote sustainable and responsible tourism while minimizing negative environmental impacts. By connecting eco-conscious travelers with verified sustainable travel options, the platform aims to create a marketplace that supports and encourages environmentally friendly tourism practices.</string>
     <string name="receipt">Receipt</string>
     <string name="status">Status</string>
+    <string name="view_packet">View Packet</string>
+    <string name="del_bucket">Item removed from cart</string>
+    <string name="failed_del_bucket">Failed to remove item from cart</string>
+    <string name="wrong">Error occurred</string>
+    <string name="failed">Failed</string>
+    <string name="say">Hi,</string>
 </resources>

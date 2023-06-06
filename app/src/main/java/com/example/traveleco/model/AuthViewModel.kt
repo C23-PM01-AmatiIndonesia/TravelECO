@@ -19,11 +19,9 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
 
     fun userLogin(email: String, password: String) = authRepository.loginUser(email, password)
 
-    fun userSignup(email: String, password: String) =
-        authRepository.registerUser(email, password)
+    fun userSignup(email: String, password: String) = authRepository.registerUser(email, password)
 
-    fun googleSignIn(credential: AuthCredential) =
-        authRepository.googleSignIn(credential)
+    fun googleSignIn(credential: AuthCredential) = authRepository.googleSignIn(credential)
 
     fun login() {
         viewModelScope.launch {
@@ -36,5 +34,4 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
             authRepository.logout()
         }
     }
-
 }

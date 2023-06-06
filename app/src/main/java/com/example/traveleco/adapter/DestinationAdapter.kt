@@ -20,13 +20,13 @@ class DestinationAdapter(private val listDestination: ArrayList<Destination>) : 
 
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
                 val destination = listDestination[position]
+
                 holder.destinationName.text = destination.name
                 holder.destinationLocation.text = destination.location
                 holder.destinationDescription.text = destination.shortDescription
                 Glide.with(holder.itemView)
                         .load(destination.photo_url)
                         .into(holder.destinationImage)
-
                 holder.itemView.setOnClickListener {
                         val intent = Intent(holder.itemView.context, DetailActivity::class.java)
                         holder.itemView.context.startActivity(intent)
@@ -34,7 +34,6 @@ class DestinationAdapter(private val listDestination: ArrayList<Destination>) : 
         }
 
         class MyViewHolder(binding: ItemHomeBinding) : RecyclerView.ViewHolder(binding.root) {
-
                 val destinationName = binding.tvDestinationName
                 val destinationLocation = binding.tvDestinationLocation
                 val destinationDescription = binding.tvDestinationDescription

@@ -18,9 +18,8 @@ class AuthRepository(
     private val authPreference: AuthPreference,
     private val firebaseAuth: FirebaseAuth
 ) {
-
-    fun loginUser(email: String, password: String): LiveData<ResponseMessage<AuthResult>> = liveData {
-        emit(ResponseMessage.Loading())
+    fun loginUser(email: String, password: String): LiveData<ResponseMessage<AuthResult>> =
+        liveData { emit(ResponseMessage.Loading())
         try {
             val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
             emit(ResponseMessage.Success(result))
@@ -40,8 +39,8 @@ class AuthRepository(
         }
     }
 
-    fun registerUser(email: String, password: String): LiveData<ResponseMessage<AuthResult>> = liveData {
-        emit(ResponseMessage.Loading())
+    fun registerUser(email: String, password: String): LiveData<ResponseMessage<AuthResult>> =
+        liveData { emit(ResponseMessage.Loading())
         try {
             val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
             emit(ResponseMessage.Success(result))
@@ -62,8 +61,8 @@ class AuthRepository(
         }
     }
 
-    fun googleSignIn(credential: AuthCredential): LiveData<ResponseMessage<AuthResult>> = liveData {
-        emit(ResponseMessage.Loading())
+    fun googleSignIn(credential: AuthCredential): LiveData<ResponseMessage<AuthResult>> =
+        liveData { emit(ResponseMessage.Loading())
         try {
             val result = firebaseAuth.signInWithCredential(credential).await()
             emit(ResponseMessage.Success(result))
@@ -102,7 +101,6 @@ class AuthRepository(
         return authPreference.getAuthToken().asLiveData()
     }
 
-
     companion object {
         @Volatile
         private var instance: AuthRepository? = null
@@ -115,5 +113,4 @@ class AuthRepository(
             instance = it
         }
     }
-
 }

@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         destinationArrayList = arrayListOf()
         getDestinationData()
 
-//        val nameWithGoogle = intent.getStringExtra(LoginActivity.NAME_GOOGLE)
         isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
         val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
         val displayName = sharedPref.getString("displayName", "")
@@ -68,14 +67,10 @@ class MainActivity : AppCompatActivity() {
                     binding?.tvUsername?.text = user?.name
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
-                Log.d("ProfileActivity", "Gagal")
+                Log.d("ProfileActivity", resources.getString(R.string.failed))
             }
         })
-
-
-
     }
 
     private fun getDestinationData() {
@@ -89,12 +84,11 @@ class MainActivity : AppCompatActivity() {
                     }
                     binding?.rvDestination?.adapter = DestinationAdapter(destinationArrayList)
                 } else {
-                    Log.d(TAG, "Tidak Ada Data")
+                    Log.d(TAG, resources.getString(R.string.no_data))
                 }
             }
-
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(this@MainActivity, "Gagal", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@MainActivity, resources.getString(R.string.failed), Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -115,7 +109,6 @@ class MainActivity : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.menu_profile -> {
-
                     val emailGoogle = intent.getStringExtra(LoginActivity.EMAIL_GOOGLE)
                     val displayNameGoogle = intent.getStringExtra(LoginActivity.NAME_GOOGLE)
                     val intent = Intent(this, ProfileActivity::class.java)
@@ -129,19 +122,11 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
-//    override fun onBackPressed() {
-//        moveTaskToBack(true)
-//    }
-
     companion object {
         private const val TAG = "DetailActivity"
         private const val DATABASE_NAME = "destination"
-        const val EXTRA_EMAIL = "extra_email"
-        const val EXTRA_NAME = "extra_name"
         const val NAME_GOOGLE = "name_google"
         const val EMAIL_GOOGLE = "email_google"
         const val FROM_LOGIN = "from_login"
     }
-
 }
-

@@ -86,6 +86,7 @@
                     android:textStyle="bold"
                     android:alpha="0"
                     android:textColor="?attr/colorPrimary" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -186,7 +187,9 @@
                 android:enabled="false"
                 android:textColor="@color/light_font"
                 tools:ignore="VisualLintButtonSize,TextContrastCheck,VisualLintOverlap" />
+
         </LinearLayout>
+
     </ScrollView>
 
     <TableLayout
@@ -240,5 +243,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton.Icon" />
 
         </TableRow>
+
     </TableLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

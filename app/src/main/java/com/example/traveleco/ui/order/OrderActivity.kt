@@ -24,9 +24,6 @@ class OrderActivity : AppCompatActivity() {
             val country = binding.etCountry.text.toString()
             val number = binding.etPhone.text.toString()
             val person = binding.etPerson.text.toString()
-            val program = binding.etProgram.text.toString()
-            val date = binding.etEndDate.text.toString()
-            val address = binding.etAddress.text.toString()
 
             val intent = Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:")
@@ -37,10 +34,7 @@ class OrderActivity : AppCompatActivity() {
                         "Email        : $email \n" +
                         "Kebangsaan : $country \n" +
                         "No. WA      : $number \n" +
-                        "Pengunjung : $person Orang \n" +
-                        "Program     : $program \n" +
-                        "Tanggal      : $date \n" +
-                        "Alamat        : $address")
+                        "Pengunjung : $person Orang \n")
             }
 
             if (intent.resolveActivity(packageManager) != null){

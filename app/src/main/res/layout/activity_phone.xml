@@ -75,6 +75,7 @@
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     tools:ignore="TextContrastCheck,VisualLintTextFieldSize" />
+
             </LinearLayout>
 
             <com.example.traveleco.ui.customview.EditButton
@@ -90,7 +91,9 @@
                 android:enabled="false"
                 android:textColor="@color/light_font"
                 tools:ignore="VisualLintButtonSize,TextContrastCheck,VisualLintOverlap" />
+
         </LinearLayout>
+
     </ScrollView>
 
     <TableLayout
@@ -144,5 +147,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton.Icon" />
 
         </TableRow>
+
     </TableLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

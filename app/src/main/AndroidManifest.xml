@@ -19,10 +19,24 @@
         tools:replace="android:allowBackup"
         tools:targetApi="31">
         <activity
+            android:name=".ui.detail.OvernightActivity"
+            android:exported="false"
+            android:label="@string/over"/>
+        <activity
+            android:name=".ui.detail.ComboActivity"
+            android:exported="false"
+            android:label="@string/combo"/>
+        <activity
+            android:name=".ui.detail.SingleActivity"
+            android:exported="false"
+            android:label="@string/combo"/>
+        <activity
             android:name=".ui.ReceiptActivity"
             android:exported="false" />
 
         <receiver android:name=".ui.maps.GeofenceBroadcastReceiver" />
+
+        <activity android:name=".ui.payment.PaymentMidtrans" />
 
         <activity
             android:name=".ui.order.OrderActivity"
@@ -87,7 +101,7 @@
         <activity
             android:name=".ui.auth.activity.CountryActivity"
             android:exported="false" />
-        <activity android:name=".ui.payment.PaymentMidtrans" />
+
     </application>
 
 </manifest>

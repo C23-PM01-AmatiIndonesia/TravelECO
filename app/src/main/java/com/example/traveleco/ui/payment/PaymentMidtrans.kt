@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.traveleco.database.Users
 import com.example.traveleco.databinding.ActivityOrderBinding
 import com.example.traveleco.ui.auth.activity.LoginActivity
@@ -17,7 +18,9 @@ import com.google.firebase.database.ValueEventListener
 import com.midtrans.sdk.corekit.core.MidtransSDK
 import com.midtrans.sdk.corekit.core.TransactionRequest
 import com.midtrans.sdk.corekit.core.themes.CustomColorTheme
+import com.midtrans.sdk.corekit.models.BillingAddress
 import com.midtrans.sdk.corekit.models.CustomerDetails
+import com.midtrans.sdk.corekit.models.ShippingAddress
 import com.midtrans.sdk.uikit.SdkUIFlowBuilder
 
 
@@ -31,6 +34,8 @@ class PaymentMidtrans : AppCompatActivity() {
     private lateinit var userName : String
     private lateinit var userEmail : String
     private lateinit var phoneNumber : String
+    private lateinit var userCountry: String
+    private lateinit var userAddress: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +73,8 @@ class PaymentMidtrans : AppCompatActivity() {
         if (isFromLogin) {
             userName = displayName!!
             userEmail = email!!
+            binding?.etName?.setText(displayName)
+            binding?.etEmail?.setText(email)
         }
         database.child(currentUserUid!!).addListenerForSingleValueEvent(object :
             ValueEventListener {
@@ -76,6 +83,8 @@ class PaymentMidtrans : AppCompatActivity() {
                     val user = snapshot.getValue(Users::class.java)
                     userName = user?.name!!
                     userEmail = user.email!!
+                    binding?.etName?.setText(user.name)
+                    binding?.etEmail?.setText(user.email)
                 }
             }
 
@@ -83,6 +92,12 @@ class PaymentMidtrans : AppCompatActivity() {
                 Log.d("ProfileActivity", "Gagal")
             }
         })
+
+        val nameOrder = intent.getStringExtra("SubProgram")
+        val imageOrder = intent.getStringExtra("Photo")
+
+        binding?.tvProgram?.text = nameOrder
+        Glide.with(this).load(imageOrder).into(binding!!.ivPreview)
 
         binding?.btnSend?.setOnClickListener {
             payment()
@@ -98,9 +113,14 @@ class PaymentMidtrans : AppCompatActivity() {
         val convertPerson = person.toInt()
         val times = convertPrice?.times(convertPerson)
 
-        val nameProgram = intent.getStringExtra("Program")
+        userName = binding?.etName?.text.toString()
+        userEmail = binding?.etEmail?.text.toString()
+        userCountry = binding?.etCountry?.text.toString()
+        phoneNumber = binding?.etPhone?.text.toString()
+
+        val nameProgram = intent.getStringExtra("SubProgram")
         val transactionRequest = TransactionRequest("TravelECO-"+System.currentTimeMillis().toString() + "", times!!)
-        val detail = com.midtrans.sdk.corekit.models.ItemDetails(nameProgram, convertPrice, convertPerson, "TravelECO")
+        val detail = com.midtrans.sdk.corekit.models.ItemDetails(System.currentTimeMillis().toString(), convertPrice, convertPerson, nameProgram)
         val itemDetails = ArrayList<com.midtrans.sdk.corekit.models.ItemDetails>()
         itemDetails.add(detail)
         uiKitDetails(transactionRequest, userName, userEmail, phoneNumber)
@@ -109,10 +129,15 @@ class PaymentMidtrans : AppCompatActivity() {
         MidtransSDK.getInstance().startPaymentUiFlow(this)
     }
 
-    fun uiKitDetails(transactionRequest: TransactionRequest, name: String, email: String, phone: String){
+    private fun uiKitDetails(
+        transactionRequest: TransactionRequest,
+        name: String,
+        email: String,
+        phone: String)
+    {
 
         val customerDetails = CustomerDetails()
-        customerDetails.customerIdentifier = name
+        customerDetails.firstName = name
         customerDetails.email = email
         customerDetails.phone = phone
 
