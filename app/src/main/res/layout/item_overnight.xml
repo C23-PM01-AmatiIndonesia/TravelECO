@@ -12,7 +12,7 @@
     android:layout_marginLeft="8dp"
     android:layout_marginTop="8dp"
     android:layout_marginRight="8dp"
-    android:layout_marginBottom="4dp"
+    android:layout_marginBottom="8dp"
     card_view:cardCornerRadius="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,56 +45,6 @@
             card_view:layout_constraintTop_toBottomOf="@+id/tv_program"
             tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/text_view_duration"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="4dp"-->
-<!--            android:layout_marginTop="4dp"-->
-<!--            android:text="@string/duration"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textSize="16sp"-->
-<!--            card_view:layout_constraintStart_toStartOf="parent"-->
-<!--            card_view:layout_constraintTop_toBottomOf="@id/iv_program" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_duration"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="4dp"-->
-<!--            android:layout_marginTop="4dp"-->
-<!--            android:layout_marginEnd="4dp"-->
-<!--            android:text="@string/duration"-->
-<!--            android:textSize="14sp"-->
-<!--            card_view:layout_constraintEnd_toEndOf="parent"-->
-<!--            card_view:layout_constraintStart_toStartOf="parent"-->
-<!--            card_view:layout_constraintTop_toBottomOf="@id/text_view_duration" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/text_view_description"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="4dp"-->
-<!--            android:layout_marginTop="8dp"-->
-<!--            android:text="@string/place_description"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textSize="16sp"-->
-<!--            card_view:layout_constraintStart_toStartOf="parent"-->
-<!--            card_view:layout_constraintTop_toBottomOf="@id/tv_duration" />-->
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_description"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="4dp"-->
-<!--            android:layout_marginTop="4dp"-->
-<!--            android:layout_marginEnd="4dp"-->
-<!--            android:text="@string/place_description"-->
-<!--            android:textSize="14sp"-->
-<!--            card_view:layout_constraintEnd_toEndOf="parent"-->
-<!--            card_view:layout_constraintStart_toStartOf="parent"-->
-<!--            card_view:layout_constraintTop_toBottomOf="@id/text_view_description" />-->
-
         <TextView
             android:id="@+id/text_view_price"
             android:layout_width="wrap_content"
@@ -120,20 +70,6 @@
             android:textColor="@color/red"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/iv_program" />
-
-<!--        <Button-->
-<!--            android:id="@+id/btn_add_to_cart"-->
-<!--            android:layout_width="160sp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:background="@android:color/transparent"-->
-<!--            android:foreground="@drawable/button_cart"-->
-<!--            android:text="@string/add_to_cart"-->
-<!--            android:textColor="@color/gray_pastel1"-->
-<!--            android:textSize="12sp"-->
-<!--            android:textStyle="bold"-->
-<!--            card_view:layout_constraintStart_toStartOf="parent"-->
-<!--            card_view:layout_constraintTop_toBottomOf="@+id/text_view_price" />-->
 
         <Button
             android:id="@+id/btn_view_packet"

@@ -49,28 +49,35 @@ class MainActivity : AppCompatActivity() {
         destinationArrayList = arrayListOf()
         getDestinationData()
 
-        isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
         val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
         val displayName = sharedPref.getString("displayName", "")
 
         database = FirebaseDatabase.getInstance().reference.child("users")
 
-        if (isFromLogin) {
-            binding?.tvUsername?.text = displayName
-        }
-        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
-        database.child(currentUserUid!!).addListenerForSingleValueEvent(object :
-            ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    val user = snapshot.getValue(Users::class.java)
-                    binding?.tvUsername?.text = user?.name
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {
-                Log.d("ProfileActivity", resources.getString(R.string.failed))
-            }
-        })
+        binding?.tvUsername?.text = displayName.toString()
+
+//        isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
+//        val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+//        val displayName = sharedPref.getString("displayName", "")
+//
+//        database = FirebaseDatabase.getInstance().reference.child("users")
+//
+//        if (isFromLogin) {
+//            binding?.tvUsername?.text = displayName
+//        }
+//        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+//        database.child(currentUserUid!!).addListenerForSingleValueEvent(object :
+//            ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if (snapshot.exists()) {
+//                    val user = snapshot.getValue(Users::class.java)
+//                    binding?.tvUsername?.text = user?.name
+//                }
+//            }
+//            override fun onCancelled(error: DatabaseError) {
+//                Log.d("ProfileActivity", resources.getString(R.string.failed))
+//            }
+//        })
     }
 
     private fun getDestinationData() {
@@ -109,12 +116,12 @@ class MainActivity : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.menu_profile -> {
-                    val emailGoogle = intent.getStringExtra(LoginActivity.EMAIL_GOOGLE)
-                    val displayNameGoogle = intent.getStringExtra(LoginActivity.NAME_GOOGLE)
+//                    val emailGoogle = intent.getStringExtra(LoginActivity.EMAIL_GOOGLE)
+//                    val displayNameGoogle = intent.getStringExtra(LoginActivity.NAME_GOOGLE)
                     val intent = Intent(this, ProfileActivity::class.java)
-                    intent.putExtra(FROM_LOGIN, isFromLogin)
-                    intent.putExtra(NAME_GOOGLE, displayNameGoogle)
-                    intent.putExtra(EMAIL_GOOGLE, emailGoogle)
+//                    intent.putExtra(FROM_LOGIN, isFromLogin)
+//                    intent.putExtra(NAME_GOOGLE, displayNameGoogle)
+//                    intent.putExtra(EMAIL_GOOGLE, emailGoogle)
                     startActivity(intent)
                     return@OnNavigationItemSelectedListener true
                 }

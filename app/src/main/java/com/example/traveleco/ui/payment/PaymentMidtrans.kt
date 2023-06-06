@@ -63,37 +63,46 @@ class PaymentMidtrans : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference.child("users")
 
-        isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
         val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
         val displayName = sharedPref.getString("displayName", "")
         val email = sharedPref.getString("email", "")
 
-        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+        userName = displayName!!
+        userEmail = email!!
+        binding?.etName?.setText(userName)
+        binding?.etEmail?.setText(userEmail)
 
-        if (isFromLogin) {
-            userName = displayName!!
-            userEmail = email!!
-            binding?.etName?.setText(displayName)
-            binding?.etEmail?.setText(email)
-        }
-        database.child(currentUserUid!!).addListenerForSingleValueEvent(object :
-            ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    val user = snapshot.getValue(Users::class.java)
-                    userName = user?.name!!
-                    userEmail = user.email!!
-                    binding?.etName?.setText(user.name)
-                    binding?.etEmail?.setText(user.email)
-                }
-            }
+//        isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
+//        val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+//        val displayName = sharedPref.getString("displayName", "")
+//        val email = sharedPref.getString("email", "")
+//
+//        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+//
+//        if (isFromLogin) {
+//            userName = displayName!!
+//            userEmail = email!!
+//            binding?.etName?.setText(displayName)
+//            binding?.etEmail?.setText(email)
+//        }
+//        database.child(currentUserUid!!).addListenerForSingleValueEvent(object :
+//            ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if (snapshot.exists()) {
+//                    val user = snapshot.getValue(Users::class.java)
+//                    userName = user?.name!!
+//                    userEmail = user.email!!
+//                    binding?.etName?.setText(user.name)
+//                    binding?.etEmail?.setText(user.email)
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                Log.d("ProfileActivity", "Gagal")
+//            }
+//        })
 
-            override fun onCancelled(error: DatabaseError) {
-                Log.d("ProfileActivity", "Gagal")
-            }
-        })
-
-        val nameOrder = intent.getStringExtra("SubProgram")
+        val nameOrder = intent.getStringExtra("Program")
         val imageOrder = intent.getStringExtra("Photo")
 
         binding?.tvProgram?.text = nameOrder
@@ -123,7 +132,7 @@ class PaymentMidtrans : AppCompatActivity() {
         val editor = sharedPref.edit()
         editor.putString("order_id", orderId)
 
-        val nameProgram = intent.getStringExtra("SubProgram")
+        val nameProgram = intent.getStringExtra("Program")
         val transactionRequest = TransactionRequest(orderId, times!!)
         val detail = com.midtrans.sdk.corekit.models.ItemDetails(System.currentTimeMillis().toString(), convertPrice, convertPerson, nameProgram)
         val itemDetails = ArrayList<com.midtrans.sdk.corekit.models.ItemDetails>()

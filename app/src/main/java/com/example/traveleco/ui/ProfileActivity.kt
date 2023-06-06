@@ -48,36 +48,41 @@ class ProfileActivity : AppCompatActivity(){
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference.child("users")
 
-//        val emailGoogle = intent.getStringExtra(LoginActivity.EMAIL_GOOGLE)
-//        val displayNameGoogle = intent.getStringExtra(LoginActivity.NAME_GOOGLE)
-        isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
-
         val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
         val displayName = sharedPref.getString("displayName", "")
         val email = sharedPref.getString("email", "")
-        isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
 
-        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+        binding?.tvUser?.text = displayName.toString()
+        binding?.tvEmail?.text = email
 
-        if (isFromLogin) {
-            binding?.tvUser?.text = displayName
-            binding?.tvEmail?.text = email
-        }
-        database.child(currentUserUid!!).addListenerForSingleValueEvent(object :
-            ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    val user = snapshot.getValue(Users::class.java)
-
-                    binding?.tvUser?.text = user?.name
-                    binding?.tvEmail?.text = user?.email
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.d("ProfileActivity", "Gagal")
-            }
-        })
+//        isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
+//
+//        val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+//        val displayName = sharedPref.getString("displayName", "")
+//        val email = sharedPref.getString("email", "")
+//        isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
+//
+//        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
+//
+//        if (isFromLogin) {
+//            binding?.tvUser?.text = displayName
+//            binding?.tvEmail?.text = email
+//        }
+//        database.child(currentUserUid!!).addListenerForSingleValueEvent(object :
+//            ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                if (snapshot.exists()) {
+//                    val user = snapshot.getValue(Users::class.java)
+//
+//                    binding?.tvUser?.text = user?.name
+//                    binding?.tvEmail?.text = user?.email
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {
+//                Log.d("ProfileActivity", "Gagal")
+//            }
+//        })
 
     }
 

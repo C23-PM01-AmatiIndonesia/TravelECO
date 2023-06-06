@@ -34,11 +34,13 @@ class ComboActivity : AppCompatActivity() {
 
         val program = intent.getStringExtra("Program")
         val price = intent.getStringExtra("Price")
+        val photo = intent.getStringExtra("Photo")
 
         binding?.btnOrder?.setOnClickListener {
             val intent = Intent(this, PaymentMidtrans::class.java)
             intent.putExtra("Program", program)
             intent.putExtra("Price", price)
+            intent.putExtra("Photo", photo)
             startActivity(intent)
         }
         binding?.btnAddToCart?.setOnClickListener {

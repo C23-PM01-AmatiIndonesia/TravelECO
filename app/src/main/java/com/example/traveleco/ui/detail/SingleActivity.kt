@@ -40,13 +40,13 @@ class SingleActivity : AppCompatActivity() {
         _binding = ActivitySingleBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        val program = intent.getStringExtra("SubProgram")
+        val program = intent.getStringExtra("Program")
         val price = intent.getStringExtra("Price")
         val photo = intent.getStringExtra("Photo")
 
         binding?.btnOrder?.setOnClickListener {
             val intent = Intent(this, PaymentMidtrans::class.java)
-            intent.putExtra("SubProgram", program)
+            intent.putExtra("Program", program)
             intent.putExtra("Price", price)
             intent.putExtra("Photo", photo)
             startActivity(intent)
@@ -111,9 +111,9 @@ class SingleActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun getSingleData() {
-        val program = intent.getStringExtra("Program")
+        val program = intent.getStringExtra("MainProgram")
         val photo = intent.getStringExtra("Photo")
-        val subProgram = intent.getStringExtra("SubProgram")
+        val subProgram = intent.getStringExtra("Program")
         val details = intent.getStringExtra("Details")
         val duration = intent.getStringExtra("Duration")
         val level = intent.getStringExtra("Level")

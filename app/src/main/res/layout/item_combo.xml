@@ -10,7 +10,7 @@
     android:elevation="4dp"
     android:layout_gravity="center"
     android:layout_marginTop="8dp"
-    android:layout_marginBottom="4dp"
+    android:layout_marginBottom="8dp"
     android:layout_marginRight="8dp"
     android:layout_marginLeft="8dp"
     card_view:cardCornerRadius="16dp">
@@ -142,20 +142,6 @@
             android:textColor="@color/red"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_duration" />
-
-<!--        <Button-->
-<!--            android:id="@+id/btn_add_to_cart"-->
-<!--            android:layout_width="120sp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:background="@android:color/transparent"-->
-<!--            android:foreground="@drawable/button_cart"-->
-<!--            android:text="@string/add_to_cart"-->
-<!--            android:textColor="@color/gray_pastel1"-->
-<!--            android:textSize="12sp"-->
-<!--            android:textStyle="bold"-->
-<!--            card_view:layout_constraintStart_toStartOf="parent"-->
-<!--            card_view:layout_constraintTop_toBottomOf="@+id/text_view_price" />-->
 
         <Button
             android:id="@+id/btn_view_packet"

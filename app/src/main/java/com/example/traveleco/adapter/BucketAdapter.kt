@@ -43,8 +43,9 @@ class BucketAdapter(private val listBucket: ArrayList<ListBucket>) : RecyclerVie
             .into(holder.packageImage)
         holder.btnOrder.setOnClickListener {
             val intent = Intent(holder.itemView.context, PaymentMidtrans::class.java)
-            intent.putExtra("Price", favorite.packagePrice)
             intent.putExtra("Program", favorite.packageName)
+            intent.putExtra("Price", favorite.packagePrice)
+            intent.putExtra("Photo", favorite.photo_url)
             holder.itemView.context.startActivity(intent)
         }
         holder.btnDeleteItem.setOnClickListener {

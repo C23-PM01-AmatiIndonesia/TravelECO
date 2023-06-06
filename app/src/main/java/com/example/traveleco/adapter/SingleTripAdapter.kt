@@ -47,9 +47,9 @@ class SingleTripAdapter(private val singleTrips: List<SinglePrograms>) : Recycle
         Glide.with(holder.itemView).load(singleTrip.photo_url).into(holder.ivProgram)
         holder.btnViewPacket.setOnClickListener {
             val intent = Intent(holder.itemView.context, SingleActivity::class.java)
-            intent.putExtra("Program", singleTrip.activity_name)
+            intent.putExtra("MainProgram", singleTrip.activity_name)
             intent.putExtra("Photo", singleTrip.photo_url)
-            intent.putExtra("SubProgram", singleTrip.activity_type)
+            intent.putExtra("Program", singleTrip.activity_type)
             intent.putExtra("Details", singleTrip.details)
             intent.putExtra("Duration", singleTrip.duration)
             intent.putExtra("Level", singleTrip.level)

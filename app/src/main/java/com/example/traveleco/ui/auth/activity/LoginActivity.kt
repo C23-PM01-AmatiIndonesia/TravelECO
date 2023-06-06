@@ -18,6 +18,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.traveleco.*
+import com.example.traveleco.database.Users
 import com.example.traveleco.databinding.ActivityLoginBinding
 import com.example.traveleco.model.AuthViewModel
 import com.example.traveleco.model.ViewModelFactory
@@ -32,6 +33,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 
 class LoginActivity : AppCompatActivity() {
@@ -44,6 +50,9 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginPassword: EditText
     private lateinit var loginButton: EditButton
     private lateinit var googleSignInClient: GoogleSignInClient
+    private lateinit var database: DatabaseReference
+    private lateinit var usernameManual: String
+    private lateinit var emailManual: String
 
     private lateinit var authViewModel: AuthViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,14 +127,39 @@ class LoginActivity : AppCompatActivity() {
                                     )
                                 )
                                 if (auth.currentUser!!.isEmailVerified) {
+                                    database = FirebaseDatabase.getInstance().reference.child("users")
+                                    database.child(response.data?.user?.uid.toString()).addListenerForSingleValueEvent(object :
+                                        ValueEventListener {
+                                        override fun onDataChange(snapshot: DataSnapshot) {
+                                            if (snapshot.exists()) {
+                                                val user = snapshot.getValue(Users::class.java)
+
+                                                usernameManual = user?.name!!
+                                                emailManual = user.email!!
+                                            }
+                                        }
+
+                                        override fun onCancelled(error: DatabaseError) {
+                                            Log.d("ProfileActivity", "Gagal")
+                                        }
+                                    })
                                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
                                     val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
                                     val editor = sharedPref.edit()
-                                    editor.putString("displayName", email)
-                                    editor.putString("email", password)
+                                    editor.putString("displayName", usernameManual)
+                                    editor.putString("email", emailManual)
                                     intent.putExtra(FROM_LOGIN, true)
                                     editor.apply()
                                     startActivity(intent)
+                                    finish()
+//                                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+//                                    val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+//                                    val editor = sharedPref.edit()
+//                                    editor.putString("displayName", response.data?.user?.displayName)
+//                                    editor.putString("email", response.data?.user?.email)
+////                                    intent.putExtra(FROM_LOGIN, true)
+//                                    editor.apply()
+//                                    startActivity(intent)
                                 } else {
                                     Toast.makeText(
                                         this@LoginActivity,
@@ -197,7 +231,7 @@ class LoginActivity : AppCompatActivity() {
                             val editor = sharedPref.edit()
                             editor.putString("displayName", account.displayName.toString())
                             editor.putString("email", account.email.toString())
-                            intent.putExtra(FROM_LOGIN, true)
+//                            intent.putExtra(FROM_LOGIN, true)
                             editor.apply()
                             startActivity(intent)
                             finish()

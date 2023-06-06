@@ -12,7 +12,7 @@
     android:layout_marginLeft="8dp"
     android:layout_marginTop="8dp"
     android:layout_marginRight="8dp"
-    android:layout_marginBottom="4dp"
+    android:layout_marginBottom="8dp"
     card_view:cardCornerRadius="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -56,19 +56,6 @@
             android:textSize="16sp"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/iv_program" />
-
-<!--        <TextView-->
-<!--            android:id="@+id/tv_detail"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="4dp"-->
-<!--            android:layout_marginTop="4dp"-->
-<!--            android:layout_marginEnd="4dp"-->
-<!--            android:text="@string/detail_desc"-->
-<!--            android:textSize="14sp"-->
-<!--            card_view:layout_constraintEnd_toEndOf="parent"-->
-<!--            card_view:layout_constraintStart_toStartOf="parent"-->
-<!--            card_view:layout_constraintTop_toBottomOf="@+id/tv_subprogram" />-->
 
         <TextView
             android:id="@+id/textView10"
@@ -169,20 +156,6 @@
             android:textColor="@color/red"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_inclussion" />
-
-<!--        <Button-->
-<!--            android:id="@+id/btn_add_to_cart"-->
-<!--            android:layout_width="120sp"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginTop="16dp"-->
-<!--            android:text="@string/add_to_cart"-->
-<!--            android:textStyle="bold"-->
-<!--            android:textSize="12sp"-->
-<!--            android:foreground="@drawable/button_cart"-->
-<!--            android:background="@android:color/transparent"-->
-<!--            android:textColor="@color/gray_pastel1"-->
-<!--            card_view:layout_constraintStart_toStartOf="parent"-->
-<!--            card_view:layout_constraintTop_toBottomOf="@+id/text_view_price" />-->
 
         <Button
             android:id="@+id/btn_view_packet"
