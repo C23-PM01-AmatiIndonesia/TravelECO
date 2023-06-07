@@ -136,9 +136,14 @@ class PaymentMidtrans : AppCompatActivity() {
         transactionRequest.itemDetails = itemDetails
         MidtransSDK.getInstance().transactionRequest = transactionRequest
         MidtransSDK.getInstance().startPaymentUiFlow(this)
-        val sharedPref = getSharedPreferences("orderId", Context.MODE_PRIVATE)
+        val sharedPref = getSharedPreferences("order", Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putString("order_id", orderId)
+        editor.putString("name_program", nameProgram)
+        editor.putString("username_order", userName)
+        editor.putString("email_order", userEmail)
+        editor.putString("phone_number", phoneNumber)
+        editor.putString("number_of_person", person)
         editor.apply()
     }
 
