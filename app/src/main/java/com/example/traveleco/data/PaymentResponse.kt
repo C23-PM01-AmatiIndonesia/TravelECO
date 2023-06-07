@@ -7,7 +7,6 @@ import kotlinx.parcelize.RawValue
 
 @Parcelize
 data class PaymentResponse(
-
 	@field:SerializedName("transaction_id")
 	val transactionId: String,
 
@@ -23,14 +22,8 @@ data class PaymentResponse(
 	@field:SerializedName("status_code")
 	val statusCode: String,
 
-	@field:SerializedName("payment_amounts")
-	val paymentAmounts: List<@RawValue Any>,
-
-	@field:SerializedName("signature_key")
-	val signatureKey: String,
-
 	@field:SerializedName("gross_amount")
-	val grossAmount: String,
+	val grossAmount: Double,
 
 	@field:SerializedName("merchant_id")
 	val merchantId: String,
@@ -52,4 +45,13 @@ data class PaymentResponse(
 
 	@field:SerializedName("order_id")
 	val orderId: String
+) : Parcelable
+
+@Parcelize
+data class VaNumbersItem(
+	@field:SerializedName("bank")
+	val bank: String,
+
+	@field:SerializedName("va_number")
+	val vaNumber: String
 ) : Parcelable

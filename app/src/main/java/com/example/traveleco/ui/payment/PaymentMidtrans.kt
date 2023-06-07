@@ -30,12 +30,10 @@ class PaymentMidtrans : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
-    private var isFromLogin: Boolean = false
     private lateinit var userName : String
     private lateinit var userEmail : String
     private lateinit var phoneNumber : String
     private lateinit var userCountry: String
-    private lateinit var userAddress: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -128,9 +126,6 @@ class PaymentMidtrans : AppCompatActivity() {
         phoneNumber = binding?.etPhone?.text.toString()
 
         val orderId = "TravelECO-"+System.currentTimeMillis().toString() + ""
-        val sharedPref = getSharedPreferences("orderId", Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-        editor.putString("order_id", orderId)
 
         val nameProgram = intent.getStringExtra("Program")
         val transactionRequest = TransactionRequest(orderId, times!!)
@@ -141,6 +136,10 @@ class PaymentMidtrans : AppCompatActivity() {
         transactionRequest.itemDetails = itemDetails
         MidtransSDK.getInstance().transactionRequest = transactionRequest
         MidtransSDK.getInstance().startPaymentUiFlow(this)
+        val sharedPref = getSharedPreferences("orderId", Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putString("order_id", orderId)
+        editor.apply()
     }
 
     private fun uiKitDetails(

@@ -33,34 +33,21 @@ class ReceiptActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[PaymentViewModel::class.java]
 
-        val sharedPref = getSharedPreferences("orderId", Context.MODE_PRIVATE)
-        val orderId = sharedPref.getString("order_id", "")
+//        val sharedPref = getSharedPreferences("orderId", Context.MODE_PRIVATE)
+//        val orderId = sharedPref.getString("order_id", "")
 
-//        val orderId = "TravelECO-1686056934415"
+        val orderId = "TravelECO-1686057678054"
         // Ubah sesuai dengan orderId yang ingin Anda ambil detailnya
-        viewModel.getOrderDetail(orderId!!)
-        viewModel.getMerchant(orderId)
+        viewModel.getOrderDetail(orderId)
 
-        viewModel.orderDetail.observe(this) { paymentResponses ->
-            val paymentResponse = paymentResponses.firstOrNull()
-            if (paymentResponse != null) {
-                // Lakukan sesuatu dengan data response
-                binding?.apply {
-                    tvOrderId.text = paymentResponse.orderId
-                    tvPaymentType.text = paymentResponse.paymentType
-                    tvStatus.text = paymentResponse.transactionStatus
-                    tvCurrency.text = paymentResponse.currency
-                    tvPrice.text = paymentResponse.grossAmount
-                }
-            }
-        }
-
-        viewModel.detailMerchant.observe(this) { vaNumbersItems ->
-            val vaNumbersItem = vaNumbersItems.firstOrNull()
-            if (vaNumbersItem != null) {
-                binding?.apply {
-                    tvPaymentMerchant.text = vaNumbersItem.bank
-                }
+        viewModel.orderDetail.observe(this) { paymentResponse ->
+            // Lakukan sesuatu dengan data response
+            binding?.apply {
+                tvOrderId.text = paymentResponse.orderId
+                tvStatus.text = paymentResponse.transactionStatus
+                tvCurrency.text = paymentResponse.currency
+                tvPrice.text = paymentResponse.grossAmount.toString()
+                tvPaymentMerchant.text = paymentResponse.paymentType
             }
         }
 

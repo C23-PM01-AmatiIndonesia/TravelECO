@@ -22,9 +22,14 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    viewBinding {
-        enabled true
+    buildFeatures {
+        mlModelBinding true
+        viewBinding true
     }
+
+//    viewBinding {
+//        enabled true
+//    }
 
     buildTypes {
         release {
@@ -97,6 +102,9 @@ dependencies {
     implementation "androidx.room:room-paging:2.6.0-alpha01"
     implementation "androidx.room:room-runtime:2.6.0-alpha01"
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    implementation "org.tensorflow:tensorflow-lite-support:0.1.0"
+    implementation "org.tensorflow:tensorflow-lite-metadata:0.1.0"
 
     implementation 'com.midtrans:uikit:2.0.0-SANDBOX'
 }

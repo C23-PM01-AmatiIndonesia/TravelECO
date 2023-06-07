@@ -12,7 +12,6 @@ class ApiConfig {
                 val req = chain.request()
                 val requestHeaders = req.newBuilder()
                     .addHeader("Authorization", "Basic U0ItTWlkLXNlcnZlci1XRzBiTjFwdkVsckRUSGNLaEpndllQSnk6")
-                    .addHeader("Content-Type", "application/json")
                     .addHeader("x-api-key", "SB-Mid-client-EV6tyZrK3OzoMgJ3")
                     .build()
                 chain.proceed(requestHeaders)

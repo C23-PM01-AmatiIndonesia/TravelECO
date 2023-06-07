@@ -29,6 +29,7 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
         }
     }
 
+
     fun logout() {
         viewModelScope.launch {
             authRepository.logout()
