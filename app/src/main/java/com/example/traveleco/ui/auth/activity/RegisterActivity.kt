@@ -31,9 +31,9 @@ class RegisterActivity : AppCompatActivity() {
     private var _binding: ActivityRegisterBinding? = null
     private val binding get() = _binding
 
-    private lateinit var auth: FirebaseAuth
     private val database = FirebaseDatabase.getInstance().reference.child(USERS_CHILD)
 
+    private lateinit var auth: FirebaseAuth
     private lateinit var signupName: EditText
     private lateinit var signupCountry: EditText
     private lateinit var signupEmail: EditText
@@ -42,7 +42,6 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var signupPassword: EditText
     private lateinit var signupButton: EditButton
     private lateinit var verificationId: String
-
     private lateinit var authViewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,22 +73,9 @@ class RegisterActivity : AppCompatActivity() {
         Log.d(TAG, "Phone number: $phoneNumber")
         signupPassword = binding!!.edRegisterPassword
         signupButton = binding!!.btnSignup
-        val isLogin = binding!!.txtIsLogin
-
-        isLogin.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-        }
 
         setupModel()
-
         playAnimation()
-
-        binding?.txtIsLogin?.setOnClickListener {
-            val intent = Intent(applicationContext, LoginActivity::class.java)
-            startActivity(intent)
-        }
-
         setupAction()
     }
 
@@ -123,7 +109,7 @@ class RegisterActivity : AppCompatActivity() {
                                             val currentUser = auth.currentUser
                                             currentUser?.sendEmailVerification()?.addOnCompleteListener { task ->
                                                 if (task.isSuccessful) {
-                                                    Toast.makeText(this, "Email verification sent. Please check your email.", Toast.LENGTH_SHORT).show()
+                                                    Toast.makeText(this, resources.getString(R.string.email_ferif), Toast.LENGTH_SHORT).show()
                                                     val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                                                     startActivity(intent)
                                                 } else {
@@ -132,18 +118,18 @@ class RegisterActivity : AppCompatActivity() {
                                             }
                                         } else {
                                             Log.d(TAG, response.message.toString())
-                                            Toast.makeText(this, "Gagal Membuat Akun", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(this, resources.getString(R.string.failed_acc), Toast.LENGTH_SHORT).show()
                                         }
                                     }
                                 }
                             }
                             is ResponseMessage.Error -> {
-                                Log.d("OnErrorRegister: ", "response: ${response.message.toString()}")
+                                Log.d("OnErrorRegister: ", "Response: ${response.message.toString()}")
                                 when (response.message) {
                                     "The email address is badly formatted" ->
-                                        Toast.makeText(this@RegisterActivity, "Gagal Membuat Akun. Alamat email yang diberikan memiliki format yang salah", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this@RegisterActivity, resources.getString(R.string.failed_acc_format), Toast.LENGTH_SHORT).show()
                                     "The email address is already in use by another account." ->
-                                        Toast.makeText(this@RegisterActivity, "Gagal Membuat Akun. Email sudah digunakan", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this@RegisterActivity, resources.getString(R.string.failed_acc_email), Toast.LENGTH_SHORT).show()
                                     else ->  Toast.makeText(this@RegisterActivity, R.string.error_register, Toast.LENGTH_SHORT).show()
                                 }
                             }
@@ -173,10 +159,9 @@ class RegisterActivity : AppCompatActivity() {
         val email = ObjectAnimator.ofFloat(binding?.emailLayout, View.ALPHA, 1F).setDuration(500)
         val password = ObjectAnimator.ofFloat(binding?.passwordLayout, View.ALPHA, 1F).setDuration(500)
         val btnLogin = ObjectAnimator.ofFloat(binding?.btnSignup, View.ALPHA, 1F).setDuration(500)
-        val bottomText = ObjectAnimator.ofFloat(binding?.tableLayout, View.ALPHA, 1F).setDuration(500)
 
         AnimatorSet().apply {
-            playSequentially(message, username, country, email, password, btnLogin, bottomText)
+            playSequentially(message, username, country, email, password, btnLogin)
             startDelay = 500
         }.start()
     }

@@ -2,22 +2,19 @@ package com.example.traveleco.ui.detail
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.traveleco.R
 import com.example.traveleco.database.ComboPrograms
-import com.example.traveleco.database.SinglePrograms
 import com.example.traveleco.databinding.ActivityComboBinding
-import com.example.traveleco.databinding.ActivitySingleBinding
 import com.example.traveleco.ui.payment.PaymentMidtrans
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import java.text.NumberFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class ComboActivity : AppCompatActivity() {
 
@@ -83,13 +80,13 @@ class ComboActivity : AppCompatActivity() {
                         userFavoritesRef.setValue(favoritesList)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    Toast.makeText(this, "Berhasil Menambahkan Paket ke Keranjang", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this, resources.getString(R.string.add_bucket), Toast.LENGTH_SHORT).show()
                                 } else {
-                                    Toast.makeText(this, "Gagal Menambahkan Paket ke Keranjang", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this, resources.getString(R.string.failed_bucket), Toast.LENGTH_SHORT).show()
                                 }
                             }
                     } else {
-                        Toast.makeText(this, "Paket sudah ada pada keranjang", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, resources.getString(R.string.already_bucket), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -112,7 +109,6 @@ class ComboActivity : AppCompatActivity() {
         val numberFormat = NumberFormat.getNumberInstance(Locale("id", "ID"))
         val formattedPrice = numberFormat.format(priceToInt)
         formattedPrice.toString()
-
 
         binding?.tvProgram?.text = program
         Glide.with(applicationContext)

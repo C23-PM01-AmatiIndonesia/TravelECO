@@ -17,14 +17,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.traveleco.MainActivity
+import com.example.traveleco.R
 import com.example.traveleco.databinding.ActivityOtpBinding
 import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
-import com.example.traveleco.R
-import com.example.traveleco.database.Users
-import com.google.firebase.database.FirebaseDatabase
 import java.util.concurrent.TimeUnit
 
 class OtpActivity : AppCompatActivity() {
@@ -41,13 +38,8 @@ class OtpActivity : AppCompatActivity() {
     private lateinit var inputOTP6: EditText
     private lateinit var otpNumber: String
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
-    private lateinit var name: String
-    private lateinit var email: String
     private lateinit var phoneNumber: String
-    private lateinit var country: String
-    private var isFromLogin: Boolean = false
     private lateinit var signupButton: Button
-    private val database = FirebaseDatabase.getInstance().reference.child(USERS_CHILD)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,7 +72,6 @@ class OtpActivity : AppCompatActivity() {
         @Suppress("DEPRECATION")
         resendToken = intent.getParcelableExtra(PhoneActivity.RESEND_TOKEN)!!
         phoneNumber = intent.getStringExtra(PhoneActivity.PHONE_NUMBER)!!
-        isFromLogin = intent.getBooleanExtra(CountryActivity.FROM_LOGIN, true)
 
         playAnimation()
         addTextChangeListener()
@@ -89,13 +80,7 @@ class OtpActivity : AppCompatActivity() {
             resendVerificationCode()
             resendOTPVisibility()
         }
-
-        binding?.txtIsLogin?.setOnClickListener {
-            val intent = Intent(applicationContext, LoginActivity::class.java)
-            startActivity(intent)
-        }
-
-        setupAction()
+//        setupAction()
     }
 
     private fun setupAction() {
@@ -121,8 +106,6 @@ class OtpActivity : AppCompatActivity() {
                 signupButton.isEnabled = false
                 Toast.makeText(this, resources.getString(R.string.empty_otp), Toast.LENGTH_SHORT).show()
             }
-
-
         }
     }
 
@@ -131,15 +114,8 @@ class OtpActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // OTP verification is successful
-//                    if (isFromLogin) {
-//                        val currentUserUid = auth.currentUser?.uid!!
-//                        val user = Users(name, email, phoneNumber, country, currentUserUid)
-//                        database.child(currentUserUid).setValue(user)
-//                        val intent = Intent(applicationContext, MainActivity::class.java)
-//                        startActivity(intent)
-//                    }
                     // Proceed to RegisterActivity
-                    val intent = Intent(applicationContext, RegisterActivity::class.java)
+                    val intent = Intent(this, RegisterActivity::class.java)
                     intent.putExtra(OTP_NUMBER, otpNumber)
                     intent.putExtra(PHONE_NUMBER, phoneNumber)
                     startActivity(intent)
@@ -192,7 +168,6 @@ class OtpActivity : AppCompatActivity() {
         override fun onVerificationFailed(e: FirebaseException) {
             // This callback is invoked in an invalid request for verification is made,
             // for instance if the the phone number format is not valid.
-
             if (e is FirebaseAuthInvalidCredentialsException) {
                 // Invalid request
                 Log.d("TAG", "onVerificationFailed: $e")
@@ -216,7 +191,6 @@ class OtpActivity : AppCompatActivity() {
             resendToken = token
         }
     }
-
 
     private fun addTextChangeListener() {
         inputOTP1.addTextChangedListener(EditTextWatcher(inputOTP1))
@@ -242,12 +216,9 @@ class OtpActivity : AppCompatActivity() {
                 R.id.otpEditText4 -> if (text.length == 1) inputOTP5.requestFocus() else if (text.isEmpty()) inputOTP3.requestFocus()
                 R.id.otpEditText5 -> if (text.length == 1) inputOTP6.requestFocus() else if (text.isEmpty()) inputOTP4.requestFocus()
                 R.id.otpEditText6 -> if (text.isEmpty()) inputOTP5.requestFocus() else binding?.btnSignup?.isEnabled = true
-
             }
         }
-
     }
-
 
     private fun playAnimation() {
         val title = ObjectAnimator.ofFloat(binding?.titleTextView, View.ALPHA, 1F).setDuration(500)
@@ -256,10 +227,9 @@ class OtpActivity : AppCompatActivity() {
         val btnResend = ObjectAnimator.ofFloat(binding?.btnResendOtp, View.ALPHA, 1F).setDuration(500)
         val otpLayout = ObjectAnimator.ofFloat(binding?.otpLayout, View.ALPHA, 1F).setDuration(500)
         val btnRegister = ObjectAnimator.ofFloat(binding?.btnSignup, View.ALPHA, 1F).setDuration(500)
-        val bottomText = ObjectAnimator.ofFloat(binding?.tableLayout, View.ALPHA, 1F).setDuration(500)
 
         AnimatorSet().apply {
-            playSequentially(title, message, isResend, btnResend, otpLayout, btnRegister, bottomText)
+            playSequentially(title, message, isResend, btnResend, otpLayout, btnRegister)
             startDelay = 500
         }.start()
     }

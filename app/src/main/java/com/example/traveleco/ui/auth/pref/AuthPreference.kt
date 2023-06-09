@@ -56,6 +56,5 @@ class AuthPreference private constructor(private val dataStore: DataStore<Prefer
                 instance
             }
         }
-
     }
 }

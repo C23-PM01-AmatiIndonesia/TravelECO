@@ -11,11 +11,8 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.example.traveleco.R
 import com.example.traveleco.databinding.ActivityCountryBinding
-import com.example.traveleco.model.AuthViewModel
-import com.example.traveleco.model.ViewModelFactory
 import com.example.traveleco.ui.customview.EditButton
 import com.example.traveleco.ui.customview.EditText
 import com.google.firebase.FirebaseException
@@ -40,7 +37,6 @@ class CountryActivity : AppCompatActivity() {
     private lateinit var country: String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
-//    private lateinit var authViewModel: AuthViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,10 +54,6 @@ class CountryActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
         }
-
-//        setupModel()
-
-//        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
 
         val nameWithGoogle = intent.getStringExtra(LoginActivity.NAME_GOOGLE)
         val emailWithGoogle = intent.getStringExtra(LoginActivity.EMAIL_GOOGLE)
@@ -99,14 +91,13 @@ class CountryActivity : AppCompatActivity() {
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                Toast.makeText(applicationContext, "Failed", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, resources.getString(R.string.failed), Toast.LENGTH_LONG).show()
             }
 
             override fun onCodeSent(
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
-
                 Log.d("TAG","onCodeSent:$verificationId")
                 verificationID = verificationId
                 resendToken = token
@@ -141,7 +132,6 @@ class CountryActivity : AppCompatActivity() {
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
-
     private fun playAnimation() {
         val message = ObjectAnimator.ofFloat(binding?.messageTextView, View.ALPHA, 1F).setDuration(500)
         val phoneNumber = ObjectAnimator.ofFloat(binding?.phoneLayout, View.ALPHA, 1F).setDuration(500)
@@ -154,11 +144,6 @@ class CountryActivity : AppCompatActivity() {
             startDelay = 500
         }.start()
     }
-
-//    private fun setupModel() {
-//        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
-//        authViewModel = ViewModelProvider(this, factory)[AuthViewModel::class.java]
-//    }
 
     companion object {
         const val COUNTRY_USER = "country_user"

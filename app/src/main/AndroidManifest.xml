@@ -38,10 +38,6 @@
 
         <activity android:name=".ui.payment.PaymentMidtrans" />
 
-        <activity
-            android:name=".ui.order.OrderActivity"
-            android:exported="false"
-            android:label="@string/book" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -61,9 +57,6 @@
             android:name=".ui.maps.MapsActivity"
             android:exported="false"
             android:label="@string/title_activity_maps" />
-        <activity
-            android:name=".ui.auth.activity.AuthActivity"
-            android:exported="false" />
         <activity
             android:name=".ui.detail.DetailActivity"
             android:exported="false"

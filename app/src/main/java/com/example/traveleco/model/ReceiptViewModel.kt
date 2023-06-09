@@ -12,7 +12,6 @@ import retrofit2.Response
 
 class ReceiptViewModel : ViewModel() {
 
-
     private val _orderDetail = MutableLiveData<PaymentResponse>()
     val orderDetail: LiveData<PaymentResponse> = _orderDetail
 
@@ -35,5 +34,4 @@ class ReceiptViewModel : ViewModel() {
             }
         })
     }
-
 }

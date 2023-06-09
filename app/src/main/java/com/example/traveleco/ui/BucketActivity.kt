@@ -3,7 +3,6 @@ package com.example.traveleco.ui
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,12 +13,12 @@ import com.example.traveleco.R
 import com.example.traveleco.adapter.BucketAdapter
 import com.example.traveleco.database.ListBucket
 import com.example.traveleco.databinding.ActivityBucketBinding
-import com.example.traveleco.ui.auth.activity.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 class BucketActivity : AppCompatActivity(){
+
     private var _binding: ActivityBucketBinding? = null
     private val binding get() = _binding
 
@@ -69,7 +68,7 @@ class BucketActivity : AppCompatActivity(){
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(this@BucketActivity, "Gagal", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@BucketActivity, resources.getString(R.string.failed), Toast.LENGTH_SHORT).show()
                 }
             })
         }
@@ -104,23 +103,7 @@ class BucketActivity : AppCompatActivity(){
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.sign_out_menu -> {
-                signOut()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
     override fun onBackPressed() {
         finishAffinity()
-    }
-
-    private fun signOut() {
-        auth.signOut()
-        startActivity(Intent(this, LoginActivity::class.java))
-        finish()
     }
 }

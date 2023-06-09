@@ -7,13 +7,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.TextView
 import android.widget.Toast
-import android.provider.Settings
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -35,10 +35,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class LoginActivity : AppCompatActivity() {
 
@@ -50,11 +51,11 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var loginPassword: EditText
     private lateinit var loginButton: EditButton
     private lateinit var googleSignInClient: GoogleSignInClient
-    private lateinit var database: DatabaseReference
     private lateinit var usernameManual: String
     private lateinit var emailManual: String
-
     private lateinit var authViewModel: AuthViewModel
+    private val database = FirebaseDatabase.getInstance().reference.child("users")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -114,7 +115,6 @@ class LoginActivity : AppCompatActivity() {
                     && loginPassword.text!!.isNotEmpty()) {
                     val email = binding?.edLoginEmail?.text.toString().trim()
                     val password = binding?.edLoginPassword?.text.toString().trim()
-//                    authViewModel.signInWithEmailAndPassword(email, password)
                     authViewModel.userLogin(email, password).observe(this@LoginActivity) { response ->
                         when (response) {
                             is ResponseMessage.Loading -> {}
@@ -127,7 +127,6 @@ class LoginActivity : AppCompatActivity() {
                                     )
                                 )
                                 if (auth.currentUser!!.isEmailVerified) {
-                                    database = FirebaseDatabase.getInstance().reference.child("users")
                                     database.child(response.data?.user?.uid.toString()).addListenerForSingleValueEvent(object :
                                         ValueEventListener {
                                         override fun onDataChange(snapshot: DataSnapshot) {
@@ -138,9 +137,8 @@ class LoginActivity : AppCompatActivity() {
                                                 emailManual = user.email!!
                                             }
                                         }
-
                                         override fun onCancelled(error: DatabaseError) {
-                                            Log.d("ProfileActivity", "Gagal")
+                                            Log.d("ProfileActivity", "Failed")
                                         }
                                     })
                                     val intent = Intent(this@LoginActivity, MainActivity::class.java)
@@ -152,18 +150,10 @@ class LoginActivity : AppCompatActivity() {
                                     editor.apply()
                                     startActivity(intent)
                                     finish()
-//                                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-//                                    val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
-//                                    val editor = sharedPref.edit()
-//                                    editor.putString("displayName", response.data?.user?.displayName)
-//                                    editor.putString("email", response.data?.user?.email)
-////                                    intent.putExtra(FROM_LOGIN, true)
-//                                    editor.apply()
-//                                    startActivity(intent)
                                 } else {
                                     Toast.makeText(
                                         this@LoginActivity,
-                                        "Kamu belum verifikasi Email. Silahkan cek pada Email Kamu untuk dapat melanjutkannya",
+                                        resources.getString(R.string.not_yet_verified),
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
@@ -171,17 +161,17 @@ class LoginActivity : AppCompatActivity() {
                             is ResponseMessage.Error -> {
                                 Log.d(
                                     "OnErrorLogin: ",
-                                    "response: ${response.message.toString()}"
+                                    "Response: ${response.message.toString()}"
                                 )
                                 when (response.message) {
                                     "There is no user record corresponding to this identifier. The user may have been deleted" ->
-                                        Toast.makeText(this@LoginActivity, "Akun Tidak ditemukan", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this@LoginActivity, resources.getString(R.string.not_found), Toast.LENGTH_SHORT).show()
                                     "The password is invalid or the user does not have a password" ->
-                                        Toast.makeText(this@LoginActivity, "Email atau password salah", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this@LoginActivity, resources.getString(R.string.wrong_pass_email), Toast.LENGTH_SHORT).show()
                                     "The email address is badly formatted" ->
-                                        Toast.makeText(this@LoginActivity, "Email atau password salah", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this@LoginActivity, resources.getString(R.string.wrong_pass_email), Toast.LENGTH_SHORT).show()
                                     else ->
-                                        Toast.makeText(this@LoginActivity, "Akun tidak terdaftar", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this@LoginActivity, resources.getString(R.string.not_registered), Toast.LENGTH_SHORT).show()
                                 }
                             }
                         }
@@ -225,19 +215,30 @@ class LoginActivity : AppCompatActivity() {
                                     true
                                 )
                             )
-                            Log.d("LoginActivity", "Memulai MainActivity")
-                            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                            val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
-                            val editor = sharedPref.edit()
-                            editor.putString("displayName", account.displayName.toString())
-                            editor.putString("email", account.email.toString())
-//                            intent.putExtra(FROM_LOGIN, true)
-                            editor.apply()
-                            startActivity(intent)
-                            finish()
+                            val currentUserUid = auth.currentUser?.uid
+                            if (currentUserUid != null) {
+                                val user = Users(account.displayName, account.email, "", "", currentUserUid, getCurrentDateTime())
+
+                                database.child(currentUserUid).setValue(user).addOnCompleteListener { tasks ->
+                                    if (tasks.isSuccessful) {
+                                        Log.d("LoginActivity", "Start MainActivity")
+                                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                        val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+                                        val editor = sharedPref.edit()
+                                        editor.putString("displayName", account.displayName.toString())
+                                        editor.putString("email", account.email.toString())
+                                        editor.apply()
+                                        startActivity(intent)
+                                        finish()
+                                    } else {
+                                        Log.d("Login Activity", response.message.toString())
+                                        Toast.makeText(this, "Gagal Membuat Akun", Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }
                         }
                         is ResponseMessage.Error -> {
-                            Log.d("OnErrorLogin: ", "response: ${response.message.toString()}")
+                            Log.d("OnErrorLogin: ", "Response: ${response.message.toString()}")
                             Toast.makeText(this@LoginActivity, response.message, Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -246,6 +247,12 @@ class LoginActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, task.exception.toString(), Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun getCurrentDateTime(): String {
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+        val date = Date()
+        return dateFormat.format(date)
     }
 
     private fun saveUserData(user: AuthUser) {
@@ -288,5 +295,4 @@ class LoginActivity : AppCompatActivity() {
         const val EMAIL_GOOGLE = "email_google"
         const val FROM_LOGIN = "from_login"
     }
-
 }

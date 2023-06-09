@@ -1,27 +1,12 @@
 package com.example.traveleco.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.example.traveleco.R
 import com.example.traveleco.database.Receipt
 import com.example.traveleco.databinding.ItemReceiptBinding
-import com.example.traveleco.ui.payment.PaymentMidtrans
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
-import com.google.firebase.database.ktx.getValue
-import java.text.NumberFormat
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.HashMap
 
 class ReceiptAdapter(private val listReceipt: ArrayList<Receipt>) : RecyclerView.Adapter<ReceiptAdapter.MyViewHolder>() {
-
-    private lateinit var auth: FirebaseAuth
-    private lateinit var database: DatabaseReference
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemReceiptBinding.inflate(LayoutInflater.from(parent.context), parent, false)

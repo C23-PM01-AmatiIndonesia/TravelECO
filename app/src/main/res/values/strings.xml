@@ -130,4 +130,21 @@
     <string name="wrong">Error occurred</string>
     <string name="failed">Failed</string>
     <string name="say">Hi,</string>
+    <string name="notes">Notes:\n-. Price is per person (minimum 2 person)\n-. Booking is made 24 hours prior the activity\n-. Payment is Paid prior the activity\n-. Cancellation policy apply\n-. Own Transport	</string>
+    <string name="not_yet_verified">You have not verified your Email. Please check your Email to continue</string>
+    <string name="not_found">Account Not Found</string>
+    <string name="wrong_pass_email">Incorrect Email or Password</string>
+    <string name="not_registered">Unregistered account</string>
+    <string name="email_ferif">Email verification sent. Please check your email</string>
+    <string name="failed_acc">Failed to Create Account</string>
+    <string name="failed_acc_format">Failed to Create Account. The email address provided has an incorrect format</string>
+    <string name="failed_acc_email">Failed to Create Account. Email already in use</string>
+    <string name="add_bucket">Successfully Add Package to Cart</string>
+    <string name="failed_bucket">Failed to Add Package to Cart</string>
+    <string name="already_bucket">Package already in the cart</string>
+    <string name="arrive_loc">You can enjoy it now :)</string>
+    <string name="geo_added">Geofencing added</string>
+    <string name="geo_not_added">Geofencing added</string>
+    <string name="cant_get_detail">Sorry, Can\'t Get Followers Detail</string>
+    <string name="soon">Coming Soon</string>
 </resources>

@@ -2,19 +2,17 @@ package com.example.traveleco
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.traveleco.adapter.DestinationAdapter
 import com.example.traveleco.database.Destination
-import com.example.traveleco.database.Users
 import com.example.traveleco.databinding.ActivityMainBinding
 import com.example.traveleco.ui.BucketActivity
 import com.example.traveleco.ui.ProfileActivity
-import com.example.traveleco.ui.auth.activity.LoginActivity
 import com.example.traveleco.ui.ReceiptActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -27,7 +25,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var destinationArrayList: ArrayList<Destination>
-    private  var isFromLogin: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,28 +53,6 @@ class MainActivity : AppCompatActivity() {
 
         binding?.tvUsername?.text = displayName.toString()
 
-//        isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
-//        val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
-//        val displayName = sharedPref.getString("displayName", "")
-//
-//        database = FirebaseDatabase.getInstance().reference.child("users")
-//
-//        if (isFromLogin) {
-//            binding?.tvUsername?.text = displayName
-//        }
-//        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
-//        database.child(currentUserUid!!).addListenerForSingleValueEvent(object :
-//            ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                if (snapshot.exists()) {
-//                    val user = snapshot.getValue(Users::class.java)
-//                    binding?.tvUsername?.text = user?.name
-//                }
-//            }
-//            override fun onCancelled(error: DatabaseError) {
-//                Log.d("ProfileActivity", resources.getString(R.string.failed))
-//            }
-//        })
     }
 
     private fun getDestinationData() {
@@ -91,7 +66,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     binding?.rvDestination?.adapter = DestinationAdapter(destinationArrayList)
                 } else {
-                    Log.d(TAG, resources.getString(R.string.no_data))
+                    Log.d(TAG, "No Data")
                 }
             }
             override fun onCancelled(error: DatabaseError) {
@@ -116,12 +91,7 @@ class MainActivity : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
                 R.id.menu_profile -> {
-//                    val emailGoogle = intent.getStringExtra(LoginActivity.EMAIL_GOOGLE)
-//                    val displayNameGoogle = intent.getStringExtra(LoginActivity.NAME_GOOGLE)
                     val intent = Intent(this, ProfileActivity::class.java)
-//                    intent.putExtra(FROM_LOGIN, isFromLogin)
-//                    intent.putExtra(NAME_GOOGLE, displayNameGoogle)
-//                    intent.putExtra(EMAIL_GOOGLE, emailGoogle)
                     startActivity(intent)
                     return@OnNavigationItemSelectedListener true
                 }

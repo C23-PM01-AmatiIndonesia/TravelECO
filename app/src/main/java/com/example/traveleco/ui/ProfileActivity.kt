@@ -3,29 +3,27 @@ package com.example.traveleco.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.traveleco.MainActivity
 import com.example.traveleco.R
-import com.example.traveleco.database.Users
-import com.example.traveleco.model.ViewModelFactory
 import com.example.traveleco.databinding.ActivityProfileBinding
 import com.example.traveleco.model.AuthViewModel
+import com.example.traveleco.model.ViewModelFactory
 import com.example.traveleco.ui.auth.activity.LoginActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 class ProfileActivity : AppCompatActivity(){
+
     private var _binding: ActivityProfileBinding? = null
     private val binding get() = _binding
 
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var authViewModel: AuthViewModel
-    private var isFromLogin: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,36 +52,6 @@ class ProfileActivity : AppCompatActivity(){
 
         binding?.tvUser?.text = displayName.toString()
         binding?.tvEmail?.text = email
-
-//        isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
-//
-//        val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
-//        val displayName = sharedPref.getString("displayName", "")
-//        val email = sharedPref.getString("email", "")
-//        isFromLogin = intent.getBooleanExtra(LoginActivity.FROM_LOGIN, true)
-//
-//        val currentUserUid = FirebaseAuth.getInstance().currentUser?.uid
-//
-//        if (isFromLogin) {
-//            binding?.tvUser?.text = displayName
-//            binding?.tvEmail?.text = email
-//        }
-//        database.child(currentUserUid!!).addListenerForSingleValueEvent(object :
-//            ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                if (snapshot.exists()) {
-//                    val user = snapshot.getValue(Users::class.java)
-//
-//                    binding?.tvUser?.text = user?.name
-//                    binding?.tvEmail?.text = user?.email
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                Log.d("ProfileActivity", "Gagal")
-//            }
-//        })
-
     }
 
     @Suppress("DEPRECATION")
@@ -120,7 +88,6 @@ class ProfileActivity : AppCompatActivity(){
         authViewModel = ViewModelProvider(this, factory)[AuthViewModel::class.java]
     }
 
-
     private fun signOut() {
         authViewModel.logout()
         startActivity(Intent(this, LoginActivity::class.java))
@@ -135,5 +102,4 @@ class ProfileActivity : AppCompatActivity(){
         const val EXTRA_EMAIL = "extra_email"
         const val EXTRA_NAME = "extra_name"
     }
-
 }

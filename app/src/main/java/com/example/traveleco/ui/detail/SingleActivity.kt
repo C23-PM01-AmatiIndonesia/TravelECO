@@ -2,30 +2,19 @@ package com.example.traveleco.ui.detail
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import com.example.traveleco.MainActivity
 import com.example.traveleco.R
-import com.example.traveleco.adapter.DestinationAdapter
-import com.example.traveleco.database.Destination
 import com.example.traveleco.database.SinglePrograms
-import com.example.traveleco.databinding.ActivityDetailBinding
-import com.example.traveleco.databinding.ActivityMainBinding
 import com.example.traveleco.databinding.ActivitySingleBinding
-import com.example.traveleco.ui.maps.MapsActivity
 import com.example.traveleco.ui.payment.PaymentMidtrans
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import java.text.NumberFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class SingleActivity : AppCompatActivity() {
 
@@ -92,13 +81,13 @@ class SingleActivity : AppCompatActivity() {
                         userFavoritesRef.setValue(favoritesList)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    Toast.makeText(this, "Berhasil Menambahkan Paket ke Keranjang", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this, resources.getString(R.string.add_bucket), Toast.LENGTH_SHORT).show()
                                 } else {
-                                    Toast.makeText(this, "Gagal Menambahkan Paket ke Keranjang", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this, resources.getString(R.string.failed_bucket), Toast.LENGTH_SHORT).show()
                                 }
                             }
                     } else {
-                        Toast.makeText(this, "Paket sudah ada pada keranjang", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, resources.getString(R.string.failed_bucket), Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -134,7 +123,5 @@ class SingleActivity : AppCompatActivity() {
         binding?.tvLevel?.text = level
         binding?.tvInclussion?.text = inclussion
         binding?.tvPriceSingle?.text = "Rp $formattedPrice /Pack"
-
     }
-
 }

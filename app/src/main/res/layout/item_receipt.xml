@@ -108,7 +108,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="payment type"
+            android:text="Payment Type"
             card_view:layout_constraintStart_toEndOf="@+id/text_view_payment_type"
             card_view:layout_constraintTop_toBottomOf="@id/tv_order_id" />
 
@@ -129,7 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Rp"
+            android:text="Rp."
             card_view:layout_constraintStart_toEndOf="@+id/text_view_price"
             card_view:layout_constraintTop_toBottomOf="@id/tv_payment_merchant" />
 
@@ -139,7 +139,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="price"
+            android:text="@string/price"
             card_view:layout_constraintStart_toEndOf="@+id/tv_currency"
             card_view:layout_constraintTop_toBottomOf="@id/tv_payment_merchant" />
 
@@ -149,7 +149,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="@string/status"
+            android:text="Status: "
             android:textStyle="bold"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/text_view_price" />

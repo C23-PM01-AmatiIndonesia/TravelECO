@@ -71,7 +71,7 @@ class DetailActivity : AppCompatActivity() {
                         binding?.tvDescription?.text = destination?.longDescription
                     }
                 } else {
-                    Log.d(TAG, "gaada data")
+                    Log.d(TAG, "No Data")
                 }
             }
 
@@ -126,5 +126,4 @@ class DetailActivity : AppCompatActivity() {
         private const val TAG = "DetailActivity"
         private const val DATABASE_DESTINATION = "destination"
     }
-
 }

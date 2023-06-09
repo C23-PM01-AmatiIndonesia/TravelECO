@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.view.WindowInsets
@@ -104,7 +105,12 @@ class PhoneActivity : AppCompatActivity()  {
         }
 
         binding?.txtIsLogin?.setOnClickListener {
-            val intent = Intent(applicationContext, LoginActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding?.btnChangeLanguage?.setOnClickListener {
+            val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
             startActivity(intent)
         }
 
@@ -120,7 +126,6 @@ class PhoneActivity : AppCompatActivity()  {
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
-
 
     private fun playAnimation() {
         val message = ObjectAnimator.ofFloat(binding?.messageTextView, View.ALPHA, 1F).setDuration(500)
@@ -139,5 +144,4 @@ class PhoneActivity : AppCompatActivity()  {
         const val RESEND_TOKEN = "resend_token"
         const val PHONE_NUMBER = "phone_number"
     }
-
 }

@@ -19,25 +19,27 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         if (intent.action == ACTION_GEOFENCE_EVENT) {
             val geofencingEvent = GeofencingEvent.fromIntent(intent)
 
-            if (geofencingEvent.hasError()) {
-                val errorMessage = GeofenceStatusCodes.getStatusCodeString(geofencingEvent.errorCode)
-                Log.e(TAG, errorMessage)
-                sendNotification(context, errorMessage)
-                return
+            if (geofencingEvent != null) {
+                if (geofencingEvent.hasError()) {
+                    val errorMessage = GeofenceStatusCodes.getStatusCodeString(geofencingEvent.errorCode)
+                    Log.e(TAG, errorMessage)
+                    sendNotification(context, errorMessage)
+                    return
+                }
             }
 
-            val geofenceTransition = geofencingEvent.geofenceTransition
+            val geofenceTransition = geofencingEvent?.geofenceTransition
 
             if (geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER || geofenceTransition == Geofence.GEOFENCE_TRANSITION_DWELL) {
                 val geofenceTransitionString =
                     when (geofenceTransition) {
-                        Geofence.GEOFENCE_TRANSITION_ENTER -> "Anda telah memasuki area"
-                        Geofence.GEOFENCE_TRANSITION_DWELL -> "Anda telah di dalam area"
+                        Geofence.GEOFENCE_TRANSITION_ENTER -> "You have entered the area"
+                        Geofence.GEOFENCE_TRANSITION_DWELL -> "You are already in the area"
                         else -> "Invalid transition type"
                     }
 
                 val triggeringGeofences = geofencingEvent.triggeringGeofences
-                val requestId = triggeringGeofences[0].requestId
+                val requestId = triggeringGeofences?.get(0)?.requestId
 
                 val geofenceTransitionDetails = "$geofenceTransitionString $requestId"
                 Log.i(TAG, geofenceTransitionDetails)
@@ -52,16 +54,14 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
     }
 
     private fun sendNotification(context: Context, geofenceTransitionDetails: String) {
-        val mNotificationManager =
-            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val mNotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val mBuilder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentTitle(geofenceTransitionDetails)
-            .setContentText("Anda sudah dapat menikmatinya sekarang :)")
+            .setContentText(R.string.arrive_loc.toString())
             .setSmallIcon(R.drawable.ic_baseline_notifications_active_24)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel =
-                NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH)
+            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_HIGH)
             mBuilder.setChannelId(CHANNEL_ID)
             mNotificationManager.createNotificationChannel(channel)
         }

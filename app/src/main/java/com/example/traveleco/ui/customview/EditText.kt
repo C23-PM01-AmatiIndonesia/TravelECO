@@ -27,11 +27,7 @@ class EditText : AppCompatEditText, View.OnTouchListener {
         init()
     }
 
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    ) {
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         init()
     }
 
@@ -119,7 +115,6 @@ class EditText : AppCompatEditText, View.OnTouchListener {
                 }
             }
         })
-
     }
 
     override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
@@ -178,19 +173,9 @@ class EditText : AppCompatEditText, View.OnTouchListener {
         bottomOfTheText: Drawable? = null
     ) {
         if (endOfTheText != errorIcon) {
-            setCompoundDrawablesWithIntrinsicBounds(
-                startOfTheText,
-                topOfTheText,
-                endOfTheText,
-                bottomOfTheText
-            )
+            setCompoundDrawablesWithIntrinsicBounds(startOfTheText, topOfTheText, endOfTheText, bottomOfTheText)
         } else {
-            setCompoundDrawablesWithIntrinsicBounds(
-                startOfTheText,
-                topOfTheText,
-                null,
-                bottomOfTheText
-            )
+            setCompoundDrawablesWithIntrinsicBounds(startOfTheText, topOfTheText, null, bottomOfTheText)
         }
     }
 }

@@ -203,10 +203,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             addOnCompleteListener {
                 geofencingClient.addGeofences(geofencingRequest, geofencePendingIntent).run {
                     addOnSuccessListener {
-                        showToast("Geofencing added")
+                        showToast(resources.getString(R.string.geo_added))
                     }
                     addOnFailureListener {
-                        showToast("Geofencing not added : ${it.message}")
+                        showToast(resources.getString(R.string.geo_not_added))
                     }
                 }
             }
@@ -219,6 +219,5 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     companion object {
         private const val TAG = "MapsActivity"
-
     }
 }

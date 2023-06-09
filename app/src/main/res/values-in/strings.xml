@@ -131,4 +131,21 @@
     <string name="wrong">Terjadi Kesalahan</string>
     <string name="failed">Gagal</string>
     <string name="say">Hai,</string>
+    <string name="notes">Notes:\n-. Harga per orang (minimal 2 orang)\n-. Pemesanan dilakukan 24 jam sebelum kegiatan berlangsung\n-. Pembayaran dibayarkan sebelum kegiatan berlangsung\n-. Kebijakan pembatalan berlaku\n-. Transportasi Sendiri	</string>
+    <string name="not_yet_verified">Kamu belum verifikasi Email. Silahkan cek pada Email Kamu untuk dapat melanjutkannya</string>
+    <string name="not_found">Akun Tidak Ditemukan</string>
+    <string name="wrong_pass_email">Email atau Kata Sandi Salah</string>
+    <string name="not_registered">Akun tidak terdaftar</string>
+    <string name="email_ferif">Verifikasi email terkirim. Silakan periksa email Anda</string>
+    <string name="failed_acc">Gagal Membuat Akun</string>
+    <string name="failed_acc_format">Gagal Membuat Akun. Alamat email yang diberikan memiliki format yang salah</string>
+    <string name="failed_acc_email">Gagal Membuat Akun. Email sudah digunakan</string>
+    <string name="add_bucket">Berhasil Menambahkan Paket ke Keranjang</string>
+    <string name="failed_bucket">Gagal Menambahkan Paket ke Keranjang</string>
+    <string name="already_bucket">Paket sudah ada pada keranjang</string>
+    <string name="arrive_loc">Anda sudah dapat menikmatinya sekarang :)</string>
+    <string name="geo_added">Geofencing ditambahkan</string>
+    <string name="geo_not_added">Geofencing ditambahkan</string>
+    <string name="cant_get_detail">Maaf, Tidak Bisa Mendapatkan Detail Pengikut</string>
+    <string name="soon">Coming Soon</string>
 </resources>
