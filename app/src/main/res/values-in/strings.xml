@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">TravelEco</string>
-    <string name="email">Email</string>
+    <string name="email">Email: </string>
     <string name="password">Kata Sandi</string>
     <string name="login">Masuk</string>
     <string name="signup">Daftar</string>
     <string name="logout">Keluar</string>
     <string name="user">Pengguna</string>
-    <string name="number">No. Telp</string>
+    <string name="number">No. Telp: </string>
     <string name="about">Tentang</string>
     <string name="cart">Keranjang</string>
     <string name="title_login_page">Selamat Datang \nSilahkan Masuk</string>
     <string name="message_login_page">Masuk untuk dapat menikmati perjalanan Anda</string>
     <string name="title_signup_page">Silahkan Daftar Akun</string>
     <string name="message_signup_page">Daftar segera untuk dapat menikmati perjalanan menyenangkan Anda</string>
-    <string name="name">Nama</string>
+    <string name="name">Nama: </string>
     <string name="isRegister">Belum punya Akun?</string>
     <string name="isLogin">Sudah punya Akun?</string>
     <string name="home">Beranda</string>
@@ -75,16 +75,16 @@
     <string name="place">Tempat Wisata</string>
     <string name="img_place">Gambar Tempat</string>
     <string name="review">Ulasan</string>
-    <string name="price">Harga</string>
+    <string name="price">Harga: </string>
     <string name="header1">Pilih Desa Wisata</string>
-    <string name="carfoot">Carbon Footprint</string>
+    <string name="carfoot">Carbon Footprint Kamu: </string>
     <string name="prog_act">PENGALAMAN TEGAL DUKUH</string>
     <string name="single">SINGLE</string>
     <string name="combo">COMBO TRIP</string>
     <string name="over">OVERNIGHT PACKAGE</string>
     <string name="powered">Didukung Oleh AMATI Indonesia</string>
     <string name="program">Program</string>
-    <string name="name_program">Nama Program</string>
+    <string name="name_program">Nama Program: </string>
     <string name="sub_program">Sub-Program</string>
     <string name="detail_desc">Detail Deskripsi</string>
     <string name="duration">Durasi</string>
@@ -101,7 +101,7 @@
     <string name="personal">Detail Pribadi</string>
     <string name="country">Kebangsaan</string>
     <string name="no_wa">No. WhatsApp</string>
-    <string name="num_person">Jumlah Orang</string>
+    <string name="num_person">Jumlah Orang: </string>
     <string name="start_date">Tanggal Mulai</string>
     <string name="end_date">Tanggal Berakhir</string>
     <string name="format_date">Format: Tgl/Bln/Thn</string>
@@ -145,7 +145,13 @@
     <string name="already_bucket">Paket sudah ada pada keranjang</string>
     <string name="arrive_loc">Anda sudah dapat menikmatinya sekarang :)</string>
     <string name="geo_added">Geofencing ditambahkan</string>
-    <string name="geo_not_added">Geofencing ditambahkan</string>
+    <string name="geo_not_added">Geofencing tidak ditambahkan</string>
     <string name="cant_get_detail">Maaf, Tidak Bisa Mendapatkan Detail Pengikut</string>
     <string name="soon">Coming Soon</string>
+    <string name="turn_on_loc">Aktifkan Lokasi</string>
+    <string name="person">Orang</string>
+    <string name="order_id">ID Pemesanan: </string>
+    <string name="permission_loc">Izin Lokasi</string>
+    <string name="allow_permission">Berikan Izin</string>
+    <string name="msg_permission">Aplikasi ini memerlukan izin lokasi untuk menghitung carbon footprint Kamu berdasarkan lokasi saat ini. Kamu tidak bisa lanjut jika Lokasi belum diaktifkan.</string>
 </resources>

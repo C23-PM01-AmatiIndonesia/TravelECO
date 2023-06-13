@@ -21,20 +21,20 @@ class ReceiptAdapter(private val listReceipt: ArrayList<Receipt>) : RecyclerView
         holder.orderName.text = receipt.orderName
         holder.orderEmail.text = receipt.orderEmail
         holder.orderId.text = receipt.orderId
-        holder.orderCurrency.text = receipt.orderName
         holder.orderPhone.text = receipt.orderEmail
-        holder.orderOfPeople.text = receipt.orderId
+        holder.orderProgram.text = receipt.orderProgram
+        holder.orderOfPeople.text = receipt.orderOfPeople
+        holder.orderPhone.text = receipt.orderPhone
+        holder.orderPrice.text = receipt.orderPrice.toString()
     }
 
     class MyViewHolder(binding: ItemReceiptBinding) : RecyclerView.ViewHolder(binding.root) {
-        val orderCurrency = binding.tvCurrency
         val orderEmail = binding.tvEmailReceipt
         val orderId = binding.tvOrderId
         val orderName = binding.tvNameReceipt
+        val orderProgram = binding.tvProgReceipt
         val orderOfPeople = binding.tvNumReceipt
-        val orderPaymentMerchant = binding.tvPaymentMerchant
         val orderPhone = binding.tvPhoneReceipt
         val orderPrice = binding.tvPrice
-        val orderStatus = binding.tvStatus
     }
 }

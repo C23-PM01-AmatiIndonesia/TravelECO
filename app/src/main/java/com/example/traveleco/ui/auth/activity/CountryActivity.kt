@@ -35,8 +35,8 @@ class CountryActivity : AppCompatActivity() {
     private lateinit var verificationID: String
     private lateinit var phoneNumber: String
     private lateinit var country: String
-    lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -21,54 +21,133 @@
         android:padding="4dp">
 
         <TextView
-            android:id="@+id/tv_name_receipt"
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/name"
+            android:textStyle="bold"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_email_receipt"
+            android:id="@+id/tv_name_receipt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="TextView"
+            card_view:layout_constraintStart_toEndOf="@+id/tv_name"
+            card_view:layout_constraintTop_toTopOf="@+id/tv_name" />
+
+        <TextView
+            android:id="@+id/tv_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/email"
+            android:textStyle="bold"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_name_receipt" />
 
         <TextView
-            android:id="@+id/tv_phone_receipt"
+            android:id="@+id/tv_email_receipt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="TextView"
+            card_view:layout_constraintStart_toEndOf="@+id/tv_email"
+            card_view:layout_constraintTop_toTopOf="@+id/tv_email" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_country"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="8dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:text="@string/country"-->
+<!--            android:textStyle="bold"-->
+<!--            card_view:layout_constraintStart_toStartOf="parent"-->
+<!--            card_view:layout_constraintTop_toBottomOf="@+id/tv_email_receipt" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/tv_country_receipt"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="4dp"-->
+<!--            android:text="TextView"-->
+<!--            card_view:layout_constraintStart_toEndOf="@+id/tv_country"-->
+<!--            card_view:layout_constraintTop_toTopOf="@+id/tv_country" />-->
+
+        <TextView
+            android:id="@+id/tv_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/number"
+            android:textStyle="bold"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_email_receipt" />
 
         <TextView
-            android:id="@+id/tv_num_receipt"
+            android:id="@+id/tv_phone_receipt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="TextView"
+            card_view:layout_constraintStart_toEndOf="@+id/tv_phone"
+            card_view:layout_constraintTop_toTopOf="@+id/tv_phone" />
+
+        <TextView
+            android:id="@+id/tv_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/num_person"
+            android:textStyle="bold"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_phone_receipt" />
 
         <TextView
-            android:id="@+id/tv_prog_receipt"
+            android:id="@+id/tv_num_receipt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="TextView"
+            card_view:layout_constraintStart_toEndOf="@+id/tv_num"
+            card_view:layout_constraintTop_toTopOf="@+id/tv_num" />
+
+        <TextView
+            android:id="@+id/tv_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="@string/person"
+            card_view:layout_constraintStart_toEndOf="@+id/tv_num_receipt"
+            card_view:layout_constraintTop_toTopOf="@+id/tv_num_receipt" />
+
+        <TextView
+            android:id="@+id/tv_prog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="@string/name_program"
+            android:textStyle="bold"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_num_receipt" />
+
+        <TextView
+            android:id="@+id/tv_prog_receipt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="TextView"
+            card_view:layout_constraintStart_toEndOf="@+id/tv_prog"
+            card_view:layout_constraintTop_toTopOf="@+id/tv_prog" />
 
         <TextView
             android:id="@+id/text_view_order_id"
@@ -76,7 +155,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Order ID: "
+            android:text="@string/order_id"
             android:textStyle="bold"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_prog_receipt" />
@@ -85,32 +164,11 @@
             android:id="@+id/tv_order_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
-            android:text="OrderID"
+            android:text="TextView"
             card_view:layout_constraintStart_toEndOf="@+id/text_view_order_id"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_prog_receipt" />
-
-        <TextView
-            android:id="@+id/text_view_payment_type"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Payment Type: "
-            android:textStyle="bold"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/text_view_order_id" />
-
-        <TextView
-            android:id="@+id/tv_payment_merchant"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="Payment Type"
-            card_view:layout_constraintStart_toEndOf="@+id/text_view_payment_type"
-            card_view:layout_constraintTop_toBottomOf="@id/tv_order_id" />
 
         <TextView
             android:id="@+id/text_view_price"
@@ -118,51 +176,30 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="Price: "
+            android:text="@string/price"
             android:textStyle="bold"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/text_view_payment_type" />
+            card_view:layout_constraintTop_toBottomOf="@+id/text_view_order_id" />
 
         <TextView
             android:id="@+id/tv_currency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
-            android:text="Rp."
+            android:text="Rp. "
             card_view:layout_constraintStart_toEndOf="@+id/text_view_price"
-            card_view:layout_constraintTop_toBottomOf="@id/tv_payment_merchant" />
+            card_view:layout_constraintTop_toBottomOf="@id/text_view_order_id" />
 
         <TextView
             android:id="@+id/tv_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="8dp"
-            android:text="@string/price"
+            android:text="TextView"
             card_view:layout_constraintStart_toEndOf="@+id/tv_currency"
-            card_view:layout_constraintTop_toBottomOf="@id/tv_payment_merchant" />
-
-        <TextView
-            android:id="@+id/textView26"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Status: "
-            android:textStyle="bold"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/text_view_price" />
-
-        <TextView
-            android:id="@+id/tv_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@string/status"
-            card_view:layout_constraintStart_toEndOf="@+id/textView26"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_currency" />
+            card_view:layout_constraintTop_toBottomOf="@id/text_view_order_id" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

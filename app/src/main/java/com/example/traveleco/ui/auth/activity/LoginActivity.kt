@@ -232,7 +232,7 @@ class LoginActivity : AppCompatActivity() {
                                         finish()
                                     } else {
                                         Log.d("Login Activity", response.message.toString())
-                                        Toast.makeText(this, "Gagal Membuat Akun", Toast.LENGTH_SHORT).show()
+                                        Toast.makeText(this, resources.getString(R.string.error_register), Toast.LENGTH_SHORT).show()
                                     }
                                 }
                             }
@@ -289,8 +289,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_EMAIL = "extra_email"
-        const val EXTRA_NAME = "extra_name"
         const val NAME_GOOGLE = "name_google"
         const val EMAIL_GOOGLE = "email_google"
         const val FROM_LOGIN = "from_login"

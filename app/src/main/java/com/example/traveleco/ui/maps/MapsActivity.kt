@@ -206,7 +206,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         showToast(resources.getString(R.string.geo_added))
                     }
                     addOnFailureListener {
-                        showToast(resources.getString(R.string.geo_not_added))
+//                        showToast(resources.getString(R.string.geo_not_added))
                     }
                 }
             }

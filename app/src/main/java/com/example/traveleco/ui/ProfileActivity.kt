@@ -97,9 +97,4 @@ class ProfileActivity : AppCompatActivity(){
     override fun onBackPressed() {
         finishAffinity()
     }
-
-    companion object {
-        const val EXTRA_EMAIL = "extra_email"
-        const val EXTRA_NAME = "extra_name"
-    }
 }

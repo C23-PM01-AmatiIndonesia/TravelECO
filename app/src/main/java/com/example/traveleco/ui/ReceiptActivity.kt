@@ -1,14 +1,17 @@
 package com.example.traveleco.ui
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.traveleco.MainActivity
 import com.example.traveleco.R
+import com.example.traveleco.adapter.ReceiptAdapter
 import com.example.traveleco.database.Receipt
 import com.example.traveleco.databinding.ActivityReceiptBinding
 import com.example.traveleco.model.ReceiptViewModel
@@ -25,15 +28,6 @@ class ReceiptActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var orderList: ArrayList<Receipt>
-    private lateinit var orderCurrency: String
-    private lateinit var orderGetEmail: String
-    private lateinit var orderGetId: String
-    private lateinit var orderGetName: String
-    private lateinit var orderGetOfPeople: String
-    private lateinit var orderGetPaymentMerchant: String
-    private lateinit var orderGetPhone: String
-    private lateinit var orderGetPrice: String
-    private lateinit var orderGetStatus: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +37,6 @@ class ReceiptActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance().reference
 
         val bottomNavigation = binding?.bottomNavigation
         @Suppress("DEPRECATION")
@@ -51,33 +44,11 @@ class ReceiptActivity : AppCompatActivity() {
         bottomNavigation?.selectedItemId = R.id.menu_receipt
 
         viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ReceiptViewModel::class.java]
-
-        val sharedPref = getSharedPreferences("orderId", Context.MODE_PRIVATE)
-        val orderId = sharedPref.getString("order_id", "")
-        val orderName = sharedPref.getString("username_order", "")
-        val orderEmail = sharedPref.getString("email_order", "")
-        val orderPhone = sharedPref.getString("phone_number", "")
-        val orderOfPerson = sharedPref.getString("number_of_person", "")
-
-        viewModel.getOrderDetail(orderId!!)
-
         orderList = arrayListOf()
 
-        viewModel.orderDetail.observe(this) { paymentResponse ->
-            orderCurrency = paymentResponse.currency
-            orderGetEmail = orderEmail!!
-            orderGetId = paymentResponse.orderId
-            orderGetName = orderName!!
-            orderGetOfPeople = orderOfPerson!!
-            orderGetPaymentMerchant = paymentResponse.paymentType
-            orderGetPhone = orderPhone!!
-            orderGetPrice = paymentResponse.grossAmount.toString()
-            orderGetStatus = paymentResponse.transactionStatus
-        }
-
-//        val layoutManager = LinearLayoutManager(this)
-//        binding?.rvReceipt?.layoutManager = layoutManager
-//        binding?.rvReceipt?.addItemDecoration(DividerItemDecoration(this, layoutManager.orientation))
+        val layoutManager = LinearLayoutManager(this)
+        binding?.rvReceipt?.layoutManager = layoutManager
+        binding?.rvReceipt?.addItemDecoration(DividerItemDecoration(this, layoutManager.orientation))
         orderList = arrayListOf()
         getOrderData()
     }
@@ -85,46 +56,28 @@ class ReceiptActivity : AppCompatActivity() {
     private fun getOrderData() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         if (userId != null) {
-            val userOrderRef = database.child("users").child(userId).child("order")
+            database = FirebaseDatabase.getInstance().getReference("users").child(userId).child("order")
 
-            userOrderRef.get().addOnSuccessListener { dataSnapshot ->
-                val orderList = mutableListOf<Map<String, String?>>()
-                // Jika data "favorites" sudah ada, tambahkan ke dalam list
-                if (dataSnapshot.exists()) {
-                    val currentFavorites = dataSnapshot.value as? List<Map<String, String>>
-                    currentFavorites?.let { orderList.addAll(it) }
-
-                    val order = mapOf(
-                        "orderCurrency" to orderCurrency,
-                        "orderEmail" to orderGetEmail,
-                        "orderId" to orderGetId,
-                        "orderName" to orderGetName,
-                        "orderOfPeople" to orderGetOfPeople,
-                        "orderPaymentMerchant" to orderGetPaymentMerchant,
-                        "orderPhone" to orderGetPhone,
-                        "orderPrice" to orderGetPrice,
-                        "orderStatus" to orderGetStatus
-                    )
-
-                    // Tambahkan objek favorit baru ke dalam list
-                    // Tambahkan objek favorit baru ke dalam list jika belum ada
-                    if (!orderList.any { it["orderId"] == packageName }) {
-                        orderList.add(order)
-
-                        // Simpan list favorit yang sudah diperbarui ke Firebase Database
-                        userOrderRef.setValue(orderList)
-                            .addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    Toast.makeText(this, "Successfully Add Package to Order List", Toast.LENGTH_SHORT).show()
-                                } else {
-                                    Toast.makeText(this, "Failed to Add Package to Order List", Toast.LENGTH_SHORT).show()
-                                }
-                            }
+            database.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    orderList.clear() // Clear the list before adding new data
+                    for (orderSnapshot in snapshot.children) {
+                        val favorite = orderSnapshot.getValue(Receipt::class.java)
+                        orderList.add(favorite!!)
+                    }
+                    binding?.rvReceipt?.adapter?.notifyDataSetChanged()
+                    binding?.rvReceipt?.adapter = ReceiptAdapter(orderList)
+                    if (orderList.isEmpty()) {
+                        binding?.tvEmptyOrder?.visibility = View.VISIBLE
                     } else {
-                        Toast.makeText(this, "Failed to Add Package to Order List", Toast.LENGTH_SHORT).show()
+                        binding?.tvEmptyOrder?.visibility = View.GONE
                     }
                 }
-            }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(this@ReceiptActivity, resources.getString(R.string.failed), Toast.LENGTH_SHORT).show()
+                }
+            })
         }
     }
 

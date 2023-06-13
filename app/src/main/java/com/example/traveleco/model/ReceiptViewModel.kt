@@ -16,7 +16,7 @@ class ReceiptViewModel : ViewModel() {
     val orderDetail: LiveData<PaymentResponse> = _orderDetail
 
     fun getOrderDetail(orderId: String = "") {
-        val client = ApiConfig.getApiService().getOrderDetail(orderId)
+        val client = ApiConfig.getApiServiceMidtrans("https://api.example.com/v2/").getOrderDetail(orderId)
         client.enqueue(object : Callback<PaymentResponse> {
             override fun onResponse(
                 call: Call<PaymentResponse>,
@@ -28,7 +28,6 @@ class ReceiptViewModel : ViewModel() {
                     Log.d("DetailView", "onFailure: ${response.message()}")
                 }
             }
-
             override fun onFailure(call: Call<PaymentResponse>, t: Throwable) {
                 Log.e("DetailView", "onFailure: ${t.message}")
             }

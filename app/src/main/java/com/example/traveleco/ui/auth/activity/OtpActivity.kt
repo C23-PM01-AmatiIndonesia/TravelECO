@@ -80,7 +80,7 @@ class OtpActivity : AppCompatActivity() {
             resendVerificationCode()
             resendOTPVisibility()
         }
-//        setupAction()
+        setupAction()
     }
 
     private fun setupAction() {
@@ -162,7 +162,7 @@ class OtpActivity : AppCompatActivity() {
             // 2 - Auto-retrieval. On some devices Google Play services can automatically
             //     detect the incoming verification SMS and perform verification without
             //     user action.
-            setupAction()
+//            setupAction()
         }
 
         override fun onVerificationFailed(e: FirebaseException) {
@@ -237,6 +237,5 @@ class OtpActivity : AppCompatActivity() {
     companion object {
         const val PHONE_NUMBER = "phone_number"
         const val OTP_NUMBER = "otp_number"
-        private const val USERS_CHILD = "users"
     }
 }

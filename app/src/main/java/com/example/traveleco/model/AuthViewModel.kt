@@ -9,7 +9,7 @@ import com.google.firebase.auth.AuthCredential
 import kotlinx.coroutines.launch
 
 class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
-    fun getUser(): LiveData<AuthUser> = authRepository.getUser()
+    fun getUser() : LiveData<AuthUser> = authRepository.getUser()
 
     fun saveUser(user: AuthUser) {
         viewModelScope.launch {
@@ -28,7 +28,6 @@ class AuthViewModel(private val authRepository: AuthRepository) : ViewModel() {
             authRepository.login()
         }
     }
-
 
     fun logout() {
         viewModelScope.launch {

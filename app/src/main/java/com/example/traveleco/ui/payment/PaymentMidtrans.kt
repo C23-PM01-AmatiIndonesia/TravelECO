@@ -3,14 +3,12 @@ package com.example.traveleco.ui.payment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.example.traveleco.MainActivity
 import com.example.traveleco.database.Receipt
 import com.example.traveleco.databinding.ActivityOrderBinding
-import com.example.traveleco.model.ReceiptViewModel
+import com.example.traveleco.ui.ReceiptActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -20,13 +18,11 @@ import com.midtrans.sdk.corekit.core.themes.CustomColorTheme
 import com.midtrans.sdk.corekit.models.CustomerDetails
 import com.midtrans.sdk.uikit.SdkUIFlowBuilder
 
-
 class PaymentMidtrans : AppCompatActivity() {
 
     private var _binding: ActivityOrderBinding? = null
     private val binding get() = _binding
 
-    private lateinit var viewModel: ReceiptViewModel
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private lateinit var userName : String
@@ -36,18 +32,11 @@ class PaymentMidtrans : AppCompatActivity() {
     private lateinit var person: String
     private lateinit var orderId: String
     private lateinit var orderList: ArrayList<Receipt>
-    private lateinit var orderCurrency: String
-    private lateinit var orderGetPaymentMerchant: String
-    private lateinit var orderGetPrice: String
-    private lateinit var orderGetStatus: String
-    private lateinit var orderGetId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityOrderBinding.inflate(layoutInflater)
         setContentView(binding?.root)
-
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[ReceiptViewModel::class.java]
 
         orderList = arrayListOf()
 
@@ -55,7 +44,7 @@ class PaymentMidtrans : AppCompatActivity() {
             .setClientKey("SB-Mid-client-EV6tyZrK3OzoMgJ3") // client_key is mandatory
             .setContext(applicationContext) // context is mandatory
             .setTransactionFinishedCallback {
-                getOrderData()
+
             } // set transaction finish callback (sdk callback)
             .setMerchantBaseUrl("https://midtrans-api-jl4gfhbdkq-as.a.run.app/index.php/") //set merchant url (required)
             .enableLog(true) // enable sdk log (optional)
@@ -70,7 +59,6 @@ class PaymentMidtrans : AppCompatActivity() {
             .buildSDK()
 
         auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance().reference.child("users")
 
         val sharedPref = getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
         val displayName = sharedPref.getString("displayName", "")
@@ -89,63 +77,53 @@ class PaymentMidtrans : AppCompatActivity() {
         Glide.with(this).load(imageOrder).into(binding!!.ivPreview)
 
         binding?.btnSend?.setOnClickListener {
-            payment()
-        }
-    }
+            database = FirebaseDatabase.getInstance().reference
 
-    private fun payment() {
-        val price = intent.getStringExtra("Price")
-        val convertPrice = price?.toDouble()
-        person = binding?.etPerson?.text.toString()
-        val convertPerson = person.toInt()
-        val times = convertPrice?.times(convertPerson)
+            val price = intent.getStringExtra("Price")
+            val convertPrice = price?.toDouble()
+            person = binding?.etPerson?.text.toString()
+            val convertPerson = person.toInt()
+            val times = convertPrice?.times(convertPerson)
 
-        userName = binding?.etName?.text.toString()
-        userEmail = binding?.etEmail?.text.toString()
-        userCountry = binding?.etCountry?.text.toString()
-        phoneNumber = binding?.etPhone?.text.toString()
+            userName = binding?.etName?.text.toString()
+            userEmail = binding?.etEmail?.text.toString()
+            userCountry = binding?.etCountry?.text.toString()
+            phoneNumber = binding?.etPhone?.text.toString()
+            orderId = "TravelECO-"+System.currentTimeMillis().toString() + ""
 
-        orderId = "TravelECO-"+System.currentTimeMillis().toString() + ""
+            val sharedPrefs = getSharedPreferences("orderId", Context.MODE_PRIVATE)
+            val editor = sharedPrefs.edit()
+            editor.putString("orderId", orderId)
+            editor.apply()
 
-        val nameProgram = intent.getStringExtra("Program")
-        val transactionRequest = TransactionRequest(orderId, times!!)
-        val detail = com.midtrans.sdk.corekit.models.ItemDetails(System.currentTimeMillis().toString(), convertPrice, convertPerson, nameProgram)
-        val itemDetails = ArrayList<com.midtrans.sdk.corekit.models.ItemDetails>()
-        itemDetails.add(detail)
-        uiKitDetails(transactionRequest, userName, userEmail, phoneNumber)
-        transactionRequest.itemDetails = itemDetails
-        MidtransSDK.getInstance().transactionRequest = transactionRequest
-        MidtransSDK.getInstance().startPaymentUiFlow(this)
-    }
+            val nameProgram = intent.getStringExtra("Program")
+            val transactionRequest = TransactionRequest(orderId, times!!)
+            val detail = com.midtrans.sdk.corekit.models.ItemDetails(System.currentTimeMillis().toString(), convertPrice, convertPerson, nameProgram)
+            val itemDetails = ArrayList<com.midtrans.sdk.corekit.models.ItemDetails>()
+            itemDetails.add(detail)
+            uiKitDetails(transactionRequest, userName, userEmail, phoneNumber)
+            transactionRequest.itemDetails = itemDetails
+            MidtransSDK.getInstance().transactionRequest = transactionRequest
+            MidtransSDK.getInstance().startPaymentUiFlow(this)
 
-    private fun getOrderData() {
-        viewModel.getOrderDetail(orderId)
-        viewModel.orderDetail.observe(this) { paymentResponse ->
-            orderCurrency = paymentResponse.currency
-            orderGetId = paymentResponse.orderId
-            orderGetPaymentMerchant = paymentResponse.paymentType
-            orderGetPrice = paymentResponse.grossAmount.toString()
-            orderGetStatus = paymentResponse.transactionStatus
-        }
-        val userId = FirebaseAuth.getInstance().currentUser?.uid
-        if (userId != null) {
-            val userOrderRef = database.child(userId).child("order")
-            userOrderRef.get().addOnSuccessListener { dataSnapshot ->
-                val orderList = mutableListOf<Map<String, String?>>()
-                if (dataSnapshot.exists()) {
-                    val currentOrder = dataSnapshot.value as? List<Map<String, String>>
-                    currentOrder?.let { orderList.addAll(it) }
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            if (userId != null) {
+                val userOrderRef = database.child("users").child(userId).child("order")
+                userOrderRef.get().addOnSuccessListener { dataSnapshot ->
+                    val orderList = mutableListOf<Map<String, String?>>()
+                    if (dataSnapshot.exists()) {
+                        val currentFavorites = dataSnapshot.value as? List<Map<String, String>>
+                        currentFavorites?.let { orderList.addAll(it) }
+                    }
 
                     val order = mapOf(
-                        "orderCurrency" to orderCurrency,
                         "orderEmail" to userEmail,
-                        "orderId" to orderGetId,
+                        "orderId" to orderId,
                         "orderName" to userName,
+                        "orderProgram" to nameProgram,
                         "orderOfPeople" to person,
-                        "orderPaymentMerchant" to orderGetPaymentMerchant,
                         "orderPhone" to phoneNumber,
-                        "orderPrice" to orderGetPrice,
-                        "orderStatus" to orderGetStatus
+                        "orderPrice" to times.toString()
                     )
 
                     if (!orderList.any { it["orderId"] == orderId }) {
@@ -154,13 +132,14 @@ class PaymentMidtrans : AppCompatActivity() {
                         userOrderRef.setValue(orderList)
                             .addOnCompleteListener { task ->
                                 if (task.isSuccessful) {
-                                    Toast.makeText(this, "Successfully Add Package to Order List", Toast.LENGTH_SHORT).show()
+                                    Log.d("PaymentActivity", "Successfully added to the database")
                                 } else {
-                                    Toast.makeText(this, "Failed to Add Package to Order List", Toast.LENGTH_SHORT).show()
+                                    Log.d("PaymentActivity", "Failed to add to database")
                                 }
                             }
+
                     } else {
-                        Toast.makeText(this, "Failed to Add Package to Order List", Toast.LENGTH_SHORT).show()
+                        Log.d("PaymentActivity", "Data already exists in the database")
                     }
                 }
             }
@@ -169,7 +148,7 @@ class PaymentMidtrans : AppCompatActivity() {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, ReceiptActivity::class.java)
         startActivity(intent)
         finish()
     }

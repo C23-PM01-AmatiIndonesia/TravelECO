@@ -32,7 +32,6 @@ class RegisterActivity : AppCompatActivity() {
     private val binding get() = _binding
 
     private val database = FirebaseDatabase.getInstance().reference.child(USERS_CHILD)
-
     private lateinit var auth: FirebaseAuth
     private lateinit var signupName: EditText
     private lateinit var signupCountry: EditText
@@ -185,7 +184,5 @@ class RegisterActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "Register_Activity"
         private const val USERS_CHILD = "users"
-        const val EXTRA_EMAIL = "extra_email"
-        const val EXTRA_NAME = "extra_name"
     }
 }
