@@ -1,4 +1,4 @@
-## TravelECO
+# TravelECO
 Ecotourism Android App Platform with kotlin
 # Any links/sources related to this application will be listed here
 
